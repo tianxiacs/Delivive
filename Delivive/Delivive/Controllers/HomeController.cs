@@ -20,7 +20,7 @@ namespace Delivive.Controllers
 
         public List<RestaurantViewModel> GetRestaurants()
         {
-            string constr = @"data source=SVRDEV\SQL2016DEV;initial catalog=Delivive;persist security info=True;user id=sa;password=Origin@lW@vyChips2100$";
+            string constr = @"data source=DESKTOP-2D7M32E;initial catalog=Delivive;persist security info=True;user id=sa;password=manager";
             List<RestaurantViewModel> resturants = new List<RestaurantViewModel>();
             using (SqlConnection con = new SqlConnection(constr))
             {
