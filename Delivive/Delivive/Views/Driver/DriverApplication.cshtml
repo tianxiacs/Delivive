@@ -1,0 +1,15 @@
+﻿@using Delivive.Models;
+
+@model DriverApplicationViewModel
+
+<form onsubmit="Driver/submitDriverApplication">
+    @Html.LabelFor(i => i.Driver_record)
+    @Html.CheckBoxFor(i => i.Driver_record)
+
+    @Html.LabelFor(i => i.Driver_license)
+    @Html.CheckBoxFor(i => i.Driver_license)
+
+    @Html.LabelFor(i => i.Short_answer)
+    @Html.TextAreaFor(i => i.Short_answer)
+    <input type="submit" />
+</form>
