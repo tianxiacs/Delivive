@@ -2,7 +2,7 @@
 
 @model DriverApplicationViewModel
 
-<form onsubmit="Driver/submitDriverApplication">
+<form action="submitDriverApplication" >
     @Html.LabelFor(i => i.Driver_record)
     @Html.CheckBoxFor(i => i.Driver_record)
 
