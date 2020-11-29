@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Delivive.Models;
 using System.Web.Script.Serialization;
+using System.Configuration;
 
 namespace Delivive.Controllers
 {
@@ -20,7 +21,7 @@ namespace Delivive.Controllers
 
         public List<RestaurantViewModel> GetRestaurants()
         {
-            string constr = @"data source=DESKTOP-2D7M32E;initial catalog=Delivive;persist security info=True;user id=sa;password=manager";
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
             List<RestaurantViewModel> resturants = new List<RestaurantViewModel>();
             using (SqlConnection con = new SqlConnection(constr))
             {

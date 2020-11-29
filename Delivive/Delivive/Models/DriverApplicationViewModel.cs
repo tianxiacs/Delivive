@@ -12,7 +12,7 @@ namespace Delivive.Models
         public bool Driver_record { get; set; }
         public bool Driver_license { get; set; }
         public string Short_answer { get; set; }
-        public int Admin_id { get; set; }
-        public bool Driver_Decision { get; set; }
+        //public int Admin_id { get; set; }
+        //public bool Driver_Decision { get; set; }
     }
 }
