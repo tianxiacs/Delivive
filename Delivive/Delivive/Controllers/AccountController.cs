@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Delivive.Models;
+using System.Configuration;
+using System.Data.SqlClient;
 
 namespace Delivive.Controllers
 {
@@ -72,10 +74,43 @@ namespace Delivive.Controllers
             {
                 return View(model);
             }
+            int count = 0;
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string sql = "SELECT COUNT(*) FROM End_User WHERE Name = '" + model.Name + "' and Password = '" + model.Password + "'";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    count = (int)cmd.ExecuteScalar();
+                    con.Close();
+                }
+            }
+            if (count > 0)
+            {
+                Session["UserName"] = model.Name;
+                return RedirectToLocal(returnUrl);
+            }
+            else
+            {
+                ModelState.AddModelError("", "Invalid login attempt.");
+                return View(model);
+            }
+
+            
+
+
+
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Name, model.Password, model.RememberMe, shouldLockout: false);
+
+
+
+
+
             switch (result)
             {
                 case SignInStatus.Success:
