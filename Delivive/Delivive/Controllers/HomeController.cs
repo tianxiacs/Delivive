@@ -14,15 +14,15 @@ namespace Delivive.Controllers
     {
         public ActionResult Index()
         {
-            List<RestaurantViewModel> result = GetRestaurants();
+            List<RestaurantModel> result = GetRestaurants();
             ViewBag.Result = result;
             return View();
         }
 
-        public List<RestaurantViewModel> GetRestaurants()
+        public List<RestaurantModel> GetRestaurants()
         {
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
-            List<RestaurantViewModel> resturants = new List<RestaurantViewModel>();
+            List<RestaurantModel> resturants = new List<RestaurantModel>();
             using (SqlConnection con = new SqlConnection(constr))
             {
                 string query = "SELECT * FROM Restaurant";
@@ -34,7 +34,7 @@ namespace Delivive.Controllers
                     {
                         while (sdr.Read())
                         {
-                            resturants.Add(new RestaurantViewModel
+                            resturants.Add(new RestaurantModel
                             {
                                 Restaurant_id = Convert.ToInt32(sdr["Restaurant_id"]),
                                 Business_hour = sdr["Business_hour"].ToString(),

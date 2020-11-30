@@ -89,6 +89,17 @@ namespace Delivive.Controllers
             }
             if (count > 0)
             {
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    string sql = "SELECT * FROM End_User WHERE Name = '" + model.Name + "' and Password = '" + model.Password + "'";
+                    using (SqlCommand cmd = new SqlCommand(sql))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        count = (int)cmd.ExecuteScalar();
+                        con.Close();
+                    }
+                }
                 Session["UserName"] = model.Name;
                 return RedirectToLocal(returnUrl);
             }

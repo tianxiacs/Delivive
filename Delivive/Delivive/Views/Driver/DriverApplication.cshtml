@@ -1,8 +1,17 @@
 ﻿@using Delivive.Models;
 
-@model DriverApplicationViewModel
+@model DriverApplicationModel
 
-<form action="submitDriverApplication" >
+<form action="submitDriverApplication">
+    @Html.LabelFor(i => i.Name)
+    @Html.TextBoxFor(i => i.Name)
+
+    @Html.LabelFor(i => i.Password)
+    @Html.TextBoxFor(i => i.Password)
+
+    @Html.LabelFor(i => i.Availablility)
+    @Html.TextBoxFor(i => i.Availablility)
+
     @Html.LabelFor(i => i.Driver_record)
     @Html.CheckBoxFor(i => i.Driver_record)
 
