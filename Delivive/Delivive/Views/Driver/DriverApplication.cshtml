@@ -2,29 +2,33 @@
 
 @model DriverApplicationModel
 
-<form action="submitDriverApplication">
-    @Html.LabelFor(i => i.Name)
-    @Html.TextBoxFor(i => i.Name)
+<body>
+    <form action="submitDriverApplication">
+        @Html.LabelFor(i => i.Name)
+        @Html.TextBoxFor(i => i.Name)
 
-    @Html.LabelFor(i => i.Password)
-    @Html.TextBoxFor(i => i.Password)
+        @Html.LabelFor(i => i.Password)
+        @Html.TextBoxFor(i => i.Password)
 
-    @Html.LabelFor(i => i.Phone)
-    @Html.TextBoxFor(i => i.Phone)
+        @Html.LabelFor(i => i.Phone)
+        @Html.TextBoxFor(i => i.Phone)
 
-    @Html.LabelFor(i => i.Availablility)
-    @Html.TextBoxFor(i => i.Availablility)
+        @Html.LabelFor(i => i.Availablility)
+        @Html.TextBoxFor(i => i.Availablility)
 
-    @Html.LabelFor(i => i.Driver_record)
-    @Html.CheckBoxFor(i => i.Driver_record)
+        @Html.LabelFor(i => i.Driver_record)
+        @Html.CheckBoxFor(i => i.Driver_record)
 
-    @Html.LabelFor(i => i.Driver_license)
-    @Html.CheckBoxFor(i => i.Driver_license)
+        @Html.LabelFor(i => i.Driver_license)
+        @Html.CheckBoxFor(i => i.Driver_license)
 
-    @Html.LabelFor(i => i.Short_answer)
-    @Html.TextAreaFor(i => i.Short_answer)
-    <input type="submit" />
-</form>
+        @Html.LabelFor(i => i.Short_answer)
+        @Html.TextAreaFor(i => i.Short_answer)
+        <input type="submit" />
+    </form>
+</body>
+
+
 
 <script>
     function submitDriverApplication() {
