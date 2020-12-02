@@ -173,6 +173,7 @@
     <Compile Include="Models\DriverModel.cs" />
     <Compile Include="Models\DriverApplicationModel.cs" />
     <Compile Include="Models\EndUserModel.cs" />
+    <Compile Include="Models\FoodModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrderModel.cs" />
@@ -239,6 +240,8 @@
     <Content Include="Views\Driver\DriverApplication.cshtml" />
     <Content Include="Views\Restaurant\GetRestaurantOrders.cshtml" />
     <Content Include="Views\Customer\GetCustomerOrders.cshtml" />
+    <Content Include="Views\Restaurant\AddMenu.cshtml" />
+    <Content Include="Views\Restaurant\GetRestaurantMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

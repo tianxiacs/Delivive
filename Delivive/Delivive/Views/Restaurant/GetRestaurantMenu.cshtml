@@ -1,0 +1,12 @@
+﻿<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    @foreach (var item in ViewBag.Result)
+    {
+        <tr>
+            <td>@item.Address</td>
+        </tr>
+    }
+</table>

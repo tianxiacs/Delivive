@@ -2,23 +2,6 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-            </tr>
-            @foreach (var item in ViewBag.Result)
-            {
-                <tr>
-                    <td>@item.Address</td>
-                </tr>
-            }
-        </table>
-    </div>
-</div>
-
 <!-- Section 1 - Jumbotron with large image -->
 <section id="section1" class="jumbotron-fluid text-center">
     <div>

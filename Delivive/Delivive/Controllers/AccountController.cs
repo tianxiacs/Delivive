@@ -101,6 +101,7 @@ namespace Delivive.Controllers
                     }
                 }
                 Session["UserName"] = model.Name;
+                Session["Type"] = model.Name;
                 return RedirectToLocal(returnUrl);
             }
             else

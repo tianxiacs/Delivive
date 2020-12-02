@@ -29,23 +29,3 @@
 </body>
 
 
-
-<script>
-    function submitDriverApplication() {
-         $.ajax({
-                url: '@Url.Action("Next_Manifest", "Inventory")',
-                type: "POST",
-                data: {
-                },
-                success: function (data) {
-                    firstChecked = false;
-                    originalControlNumber = data.id;
-                    $('#ManifestNumber').val(prefixValue + data.id + suffixValue);
-                },
-                error: function (response) {
-                    alert(response.responseText);
-                }
-            })
-
-    }
-</script>

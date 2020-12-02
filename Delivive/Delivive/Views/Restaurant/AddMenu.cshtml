@@ -1,0 +1,19 @@
+﻿@using Delivive.Models;
+
+@model FoodModel
+
+<body>
+    <form action="submitDriverApplication">
+        @Html.HiddenFor(i => i.Restaurant_id)
+
+        @Html.LabelFor(i => i.Food_name)
+        @Html.TextBoxFor(i => i.Food_name)
+
+        @Html.LabelFor(i => i.Price)
+        @Html.TextBoxFor(i => i.Price)
+
+        @Html.LabelFor(i => i.Description)
+        @Html.TextAreaFor(i => i.Description)
+        <input type="submit" />
+    </form>
+</body>
