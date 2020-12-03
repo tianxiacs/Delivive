@@ -17,6 +17,36 @@ namespace Delivive.Controllers
             return View();
         }
 
+        public ActionResult GetRestaurants()
+        {
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                List<RestaurantModel> result = new List<RestaurantModel>();
+                string sql = "SELECT * FROM [Restaurant];";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            result.Add(new RestaurantModel
+                            {
+                                Restaurant_id = Convert.ToInt32(sdr["Restaurant_id"]),
+                                Business_hour = sdr["Business_hour"].ToString(),
+                                Address = sdr["Address"].ToString(),
+                            });
+                        }
+                    }
+                    con.Close();
+                }
+
+                return View(result);
+            }
+        }
+
         public ActionResult GetRestaurantOrders(int restaurant_id)
         {
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
@@ -80,8 +110,7 @@ namespace Delivive.Controllers
                     con.Close();
                 }
 
-                ViewBag.Result = result;
-                return View();
+                return View(result);
             }
         }
 

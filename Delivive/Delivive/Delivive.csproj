@@ -242,6 +242,7 @@
     <Content Include="Views\Customer\GetCustomerOrders.cshtml" />
     <Content Include="Views\Restaurant\AddMenu.cshtml" />
     <Content Include="Views\Restaurant\GetRestaurantMenu.cshtml" />
+    <Content Include="Views\Restaurant\GetRestaurants.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

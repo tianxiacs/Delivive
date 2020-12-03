@@ -1,0 +1,21 @@
+﻿@using Delivive.Models;
+@model IEnumerable<RestaurantModel>
+
+<table>
+    @foreach (RestaurantModel item in Model)
+    {
+        <tr>
+            <td>@item.Restaurant_id</td>
+            <td>@item.Business_hour</td>
+            <td>@item.Address</td>
+            <td><input type="button" value="See Menu" id="@item.Restaurant_id" onclick="seeMenu(@item.Restaurant_id)"></td>
+        </tr>
+    }
+</table>
+<script>
+    function seeMenu(rest_id) {
+        window.location.href = '@Url.Action("GetRestaurantMenu", "Restaurant", new { restaurant_id = "REPLACE" })'.replace("REPLACE", rest_id);
+
+}
+</script>
+

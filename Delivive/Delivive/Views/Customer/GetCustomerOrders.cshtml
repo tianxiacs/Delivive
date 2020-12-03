@@ -1,9 +1,12 @@
-﻿
+﻿@using Delivive.Models;
+@model IEnumerable<OrderModel>
 
 
-@foreach (var item in ViewBag.Result)
+@foreach (OrderModel item in Model)
 {
-    <tr>
-        <td>@item.Order_id</td>
-    </tr>
+<tr>
+    <td>@item.Order_id</td>
+    <td>@item.Time_placed</td>
+    <td>@item.Time_delivery</td>
+</tr>
 }
