@@ -17,14 +17,16 @@ namespace Delivive.Controllers
             return View();
         }
 
-        public ActionResult GetCustomerOrders(int customer_id)
+        public ActionResult GetCustomerOrders()
         {
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
                 List<OrderModel> result = new List<OrderModel>();
+                //string sql = "SELECT * FROM [Order]"
+                //            + " WHERE Customer_id = " + customer_id + ";";
                 string sql = "SELECT * FROM [Order]"
-                            + " WHERE Customer_id = " + customer_id + ";";
+                            + " WHERE Customer_id = " + 3 + ";";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;
