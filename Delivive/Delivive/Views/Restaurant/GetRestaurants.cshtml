@@ -4,12 +4,13 @@
 <table>
     @foreach (RestaurantModel item in Model)
     {
-        <tr>
-            <td>@item.Restaurant_id</td>
-            <td>@item.Business_hour</td>
-            <td>@item.Address</td>
-            <td><input type="button" value="See Menu" id="@item.Restaurant_id" onclick="seeMenu(@item.Restaurant_id)"></td>
-        </tr>
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.Phone</td>
+        <td>@item.Business_hour</td>
+        <td>@item.Address</td>
+        <td><input type="button" value="See Menu" id="@item.Restaurant_id" onclick="seeMenu(@item.Restaurant_id)"></td>
+    </tr>
     }
 </table>
 <script>

@@ -23,7 +23,7 @@ namespace Delivive.Controllers
             using (SqlConnection con = new SqlConnection(constr))
             {
                 List<RestaurantModel> result = new List<RestaurantModel>();
-                string sql = "SELECT * FROM [Restaurant];";
+                string sql = "SELECT * FROM [Restaurant] a INNER JOIN [End_User] b on a.user_id = b.user_id;";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;
@@ -37,6 +37,8 @@ namespace Delivive.Controllers
                                 Restaurant_id = Convert.ToInt32(sdr["Restaurant_id"]),
                                 Business_hour = sdr["Business_hour"].ToString(),
                                 Address = sdr["Address"].ToString(),
+                                Name = sdr["Name"].ToString(),
+                                Phone = sdr["Phone"].ToString(),
                             });
                         }
                     }
@@ -47,14 +49,16 @@ namespace Delivive.Controllers
             }
         }
 
-        public ActionResult GetRestaurantOrders(int restaurant_id)
+        public ActionResult GetRestaurantOrders()
         {
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
                 List<OrderModel> result = new List<OrderModel>();
+                //string sql = "SELECT * FROM [Order]"
+                //            + " WHERE Restaurant_id = " + restaurant_id + ";";
                 string sql = "SELECT * FROM [Order]"
-                            + " WHERE Restaurant_id = " + restaurant_id + ";";
+                            + " WHERE Restaurant_id = " + 1 + ";";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;
@@ -151,7 +155,7 @@ namespace Delivive.Controllers
             return View(viewModel);
         }
 
-        public ActionResult addMenuAction(FoodModel model) 
+        public ActionResult addMenuAction(FoodModel model)
         {
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
@@ -181,13 +185,44 @@ namespace Delivive.Controllers
             using (SqlConnection con = new SqlConnection(constr))
             {
                 List<FoodModel> result = new List<FoodModel>();
-                string sql = "INSERT INTO ORDER () VALUES ("
-                            + ");";
+                string sql = @"INSERT INTO [ORDER] ([Time_placed]
+           ,[Time_delivery]
+           ,[Address_id]
+           ,[Delivery_status]
+           ,[Customer_id]
+           ,[Driver_id]
+           ,[Restaurant_id]) VALUES ('" +
+                        DateTime.Now + "','" +
+                          DateTime.Now + "'," +
+                        2 + "," +
+                            "'Order Placed'" + "," +
+                             3 + "," +
+                              2 + "," +
+                               1 + ");";
+                sql += @"  declare @temp int
+		   set @temp = (SELECT SCOPE_IDENTITY());";
+                foreach (FoodModel food in foods)
+                {
+                    sql +=
+                        @"INSERT INTO [dbo].[Order_Detail]
+                       ([Order_id]
+                       ,[Restaurant_id]
+                       ,[Food_id]
+                       ,[Quantity])
+                 VALUES
+                       ((@temp)," +
+                          food.Restaurant_id + "," +
+                          food.Food_id + "," +
+                          1 + ");";
+                }
+              
+
+
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;
                     con.Open();
-                    
+                    cmd.ExecuteNonQuery();
                     con.Close();
                 }
 

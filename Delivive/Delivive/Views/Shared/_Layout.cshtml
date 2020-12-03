@@ -24,10 +24,10 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Customer Orders", "GetCustomerOrders", "Customer")</li>
-                    @if (HttpContext.Current.User.Identity.Name == "Resturant")
-                    {
-                        <li>@Html.ActionLink("Restaurant Orders", "RestaurantApplication", "Restaurant")</li>
-                    }
+                    @*@if (HttpContext.Current.User.Identity.Name == "Resturant")
+                    {*@
+                        <li>@Html.ActionLink("Restaurant Orders", "GetRestaurantOrders", "Restaurant")</li>
+                    @*}*@
 
 
                     <li>@Html.ActionLink("Driver Application", "DriverApplication", "Driver")</li>
@@ -39,7 +39,7 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content" style="padding-top:100px">
         @RenderBody()
         <hr />
         <footer>

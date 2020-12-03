@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Delivive.Models
 {
-    public class RestaurantModel
+    public class RestaurantModel : EndUserModel
     {
         public int Restaurant_id { get; set; }
 
