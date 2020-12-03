@@ -8,18 +8,47 @@
         <td>@item.Food_name</td>
         <td>@item.Price</td>
         <td>@item.Description</td>
-        <td><input type="button" value="Add to Cart" id="@item.Restaurant_id" onclick="makeOrder(@item.Restaurant_id)"></td>
+        <td><input type="button" value="Add to Cart" id="@item.Food_id" onclick="makeOrder(@Json.Encode(item))" /></td>
     </tr>
 }
 </table>
 
-
 <p id="ShoppingCart">
 
 </p>
+@Html.Hidden("OrdersHidden")
+
+<input type="button" value="Place Order" onclick="placeOrder()" />
 
 <script>
-    function makeOrder
+    var foods = [];      
+    function makeOrder(food) {
+
+        document.getElementById('ShoppingCart').innerHTML = document.getElementById('ShoppingCart').innerHTML + food.Food_name;
+        $("#OrdersHidden").val(function () {
+            return this.value + JSON.stringify(food);
+        });
+        debugger
+        foods.push(food);
+    }
+
+    function placeOrder() {
+         $.ajax({
+             url: '@Url.Action("PlaceOrder", "Restaurant")',
+             contentType: 'application/json; charset=utf-8',
+             type: "POST",
+             dataType: 'json',
+                data: JSON.stringify({
+                    foods: foods
+                }),
+                success: function (data) {
+                    
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            })
+    }
 </script>
 
 

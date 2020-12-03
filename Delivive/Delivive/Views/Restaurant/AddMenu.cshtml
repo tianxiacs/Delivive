@@ -3,7 +3,22 @@
 @model FoodModel
 
 <body>
-    <form action="submitDriverApplication">
+    Current Menu:
+    <table>
+        @foreach (FoodModel item in ViewBag.Result)
+        {
+            <tr>
+                <td>@item.Food_name</td>
+                <td>@item.Price</td>
+                <td>@item.Description</td>
+            </tr>
+        }
+    </table>
+
+
+
+
+    <form action="addMenuAction">
         @Html.HiddenFor(i => i.Restaurant_id)
 
         @Html.LabelFor(i => i.Food_name)
