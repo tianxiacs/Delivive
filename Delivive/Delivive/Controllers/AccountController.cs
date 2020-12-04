@@ -106,13 +106,33 @@ namespace Delivive.Controllers
             }
             if (count > 0)
             {
+                int user_id = 0;
                 FormsAuthentication.SignOut();
                 Session.Clear();
                 FormsAuthentication.SetAuthCookie(model.Name, false);
 
                 using (SqlConnection con = new SqlConnection(constr))
                 {
-                    string sql = "SELECT * FROM End_User WHERE Name = '" + model.Name + "' and Password = '" + model.Password + "'";
+                    string sql = "SELECT user_id FROM End_User WHERE Name = '" + model.Name + "' and Password = '" + model.Password + "'";
+                    using (SqlCommand cmd = new SqlCommand(sql))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                user_id = Convert.ToInt32(sdr["user_id"]);
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+
+                Session["UserName"] = model.Name;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    string sql = "SELECT count(*) FROM End_User AS E,Customer AS C WHERE E.User_id = C.User_id AND e.user_id =" + user_id;
                     using (SqlCommand cmd = new SqlCommand(sql))
                     {
                         cmd.Connection = con;
@@ -121,8 +141,37 @@ namespace Delivive.Controllers
                         con.Close();
                     }
                 }
+                if(count > 0)
+                    Session["UserType"] = "Customer";
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    string sql = "SELECT count(*) FROM End_User AS E,Driver AS D WHERE E.User_id = D.User_id AND e.user_id =" + user_id;
+                    using (SqlCommand cmd = new SqlCommand(sql))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        count = (int)cmd.ExecuteScalar();
+                        con.Close();
+                    }
+                }
+                if (count > 0)
+                    Session["UserType"] = "Driver";
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    string sql = "SELECT count(*) FROM End_User AS E,Restaurant AS R WHERE E.User_id = R.User_id AND e.user_id =" + user_id;
+                    using (SqlCommand cmd = new SqlCommand(sql))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        count = (int)cmd.ExecuteScalar();
+                        con.Close();
+                    }
+                }
+                if (count > 0)
+                    Session["UserType"] = "Restaurant";
+
                 Session["UserName"] = model.Name;
-                Session["UserType"] = model.Name;
+                //Session["UserType"] = model.Name;
                 return RedirectToLocal(returnUrl);
             }
             else

@@ -23,18 +23,25 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Customer Orders", "GetCustomerOrders", "Customer")</li>
-                    @*@if (HttpContext.Current.User.Identity.Name == "Resturant")
-        {*@
-                    <li>@Html.ActionLink("Restaurant Orders", "GetRestaurantOrders", "Restaurant")</li>
-                    @*}*@
-
-
-                    <li>@Html.ActionLink("Driver Application", "DriverApplication", "Driver")</li>
-                    <li>@Html.ActionLink("Restaurant Application", "RestaurantApplication", "Restaurant")</li>
                     <li>@Html.ActionLink("Restaurants", "GetRestaurants", "Restaurant")</li>
-                    <li>@Html.ActionLink("Add Menu", "AddMenu", "Restaurant")</li>
-                    <li>@Html.ActionLink("Available Orders", "AvailableOrders", "Driver")</li>
+                    @if ((Session["UserType"] == null ? "" : Session["UserType"].ToString()) == "Customer")
+                    {
+                        <li>@Html.ActionLink("Customer Orders", "GetCustomerOrders", "Customer")</li>
+                    }
+                    @if ((Session["UserType"] == null ? "" : Session["UserType"].ToString()) == "Restaurant")
+                    {
+                        <li>@Html.ActionLink("Restaurant Orders", "GetRestaurantOrders", "Restaurant")</li>
+                        <li>@Html.ActionLink("Add Menu", "AddMenu", "Restaurant")</li>
+                    }
+                    @if ((Session["UserType"] == null ? "" : Session["UserType"].ToString()) == "Driver")
+                    {
+                        <li>@Html.ActionLink("Available Orders", "AvailableOrders", "Driver")</li>
+                    }
+                    @if (Session["UserName"] == null)
+                    {
+                        <li>@Html.ActionLink("Driver Application", "DriverApplication", "Driver")</li>
+                        <li>@Html.ActionLink("Restaurant Application", "RestaurantApplication", "Restaurant")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

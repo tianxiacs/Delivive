@@ -1,16 +1,16 @@
 ﻿@using Delivive.Models;
 @model IEnumerable<OrderDetailModel>
 
-
-@foreach (OrderDetailModel item in Model)
-{
-    <tr>
-        <td>@item.Food_name</td>
-        <td>@item.Price</td>
-        <td>@item.Quantity</td>
-    </tr>
-}
-
+<table>
+    @foreach (OrderDetailModel item in Model)
+    {
+        <tr>
+            <td>@item.Food_name</td>
+            <td>@item.Price</td>
+            <td>@item.Quantity</td>
+        </tr>
+    }
+</table>
 <script>
     function viewOrder(orderId) {
         window.location.href = "/Order/OrderDetail?orderId=" + orderId;
