@@ -88,7 +88,7 @@ namespace Delivive.Controllers
                 string sql = @"SELECT *, d.address as cust_Addr FROM [Order] a INNER JOIN [Restaurant] b on a.Restaurant_id = b.Restaurant_id
                             INNER JOIN end_user c ON b.User_id = c.User_id 
                             INNER JOIN Customer d ON d.Customer_id = a.Customer_id 
-                            WHERE a.Restaurant_id = " + 1 + ";";
+                            WHERE a.Restaurant_id = " + Session["Restaurant_id"] + ";";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;
@@ -222,18 +222,14 @@ namespace Delivive.Controllers
                 List<FoodModel> result = new List<FoodModel>();
                 string sql = @"INSERT INTO [ORDER] ([Time_placed]
            ,[Time_delivery]
-           ,[Address_id]
            ,[Delivery_status]
            ,[Customer_id]
-           ,[Driver_id]
            ,[Restaurant_id]) VALUES ('" +
                         DateTime.Now + "','" +
                           DateTime.Now + "'," +
-                        2 + "," +
                             "'Order Placed'" + "," +
-                             3 + "," +
-                              2 + "," +
-                               1 + ");";
+                             Session["Customer_id"] + "," +
+                               foods[0].Restaurant_id + ");";
                 sql += @"  declare @temp int
 		   set @temp = (SELECT SCOPE_IDENTITY());";
                 foreach (FoodModel food in foods)

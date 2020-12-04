@@ -52,7 +52,7 @@ namespace Delivive.Controllers
                 string sql = @"SELECT *, d.address as cust_Addr FROM [Order] a INNER JOIN [Restaurant] b on a.Restaurant_id = b.Restaurant_id
                             INNER JOIN end_user c ON b.User_id = c.User_id
                             INNER JOIN Customer d ON d.Customer_id = a.Customer_id
-                            WHERE a.Customer_id = " + Session["Customer_id"] + ";";
+                            WHERE a.Customer_id = " + Session["Customer_id"].ToString() + ";";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;
@@ -85,8 +85,8 @@ namespace Delivive.Controllers
             using (SqlConnection con = new SqlConnection(constr))
             {
                 List<OrderModel> result = new List<OrderModel>();
-                string sql = "INSERT INTO ORDER (Customer_id,Address_id,Delivery_status) VALUES ("
-                            + "(" + Session["UserId"] + ","+"1"+","+"Order Placed"+")";
+                string sql = "INSERT INTO ORDER (Customer_id,Delivery_status) VALUES ("
+                            + "(" + Session["Customer_id"].ToString() + ","+"Order Placed"+")";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;
