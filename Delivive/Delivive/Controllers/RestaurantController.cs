@@ -88,7 +88,7 @@ namespace Delivive.Controllers
                 string sql = @"SELECT *, d.address as cust_Addr FROM [Order] a INNER JOIN [Restaurant] b on a.Restaurant_id = b.Restaurant_id
                             INNER JOIN end_user c ON b.User_id = c.User_id 
                             INNER JOIN Customer d ON d.Customer_id = a.Customer_id 
-                            WHERE a.Restaurant_id = " + Session["Restaurant_id"] + ";";
+                            WHERE a.Restaurant_id = " + Session["Restaurant_id"].ToString() + ";";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;
@@ -228,7 +228,7 @@ namespace Delivive.Controllers
                         DateTime.Now + "','" +
                           DateTime.Now + "'," +
                             "'Order Placed'" + "," +
-                             Session["Customer_id"] + "," +
+                             Session["Customer_id"].ToString() + "," +
                                foods[0].Restaurant_id + ");";
                 sql += @"  declare @temp int
 		   set @temp = (SELECT SCOPE_IDENTITY());";
