@@ -20,6 +20,7 @@ namespace Delivive.Controllers
 
         public ActionResult submitDriverApplication(DriverApplicationModel viewModel)
         {
+            int result = 0;
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
@@ -33,11 +34,14 @@ namespace Delivive.Controllers
                 {
                     cmd.Connection = con;
                     con.Open();
-                    cmd.ExecuteNonQuery();
+                    result = cmd.ExecuteNonQuery();
                     con.Close();
                 }
 
-                return Json("Submit Succesfully!", JsonRequestBehavior.AllowGet);
+                if (result > 0)
+                    return RedirectToAction("SuccessPage", "Home");
+                else
+                    return RedirectToAction("ErrorPage", "Home");
             }
         }
 
@@ -93,10 +97,10 @@ namespace Delivive.Controllers
                     con.Close();
                 }
 
-                return Json("",JsonRequestBehavior.AllowGet);
+                return RedirectToAction("SuccessPage", "Home");
             }
 
-            return Json("", JsonRequestBehavior.AllowGet);
+            return RedirectToAction("SuccessPage", "Home");
         }
     }
 }

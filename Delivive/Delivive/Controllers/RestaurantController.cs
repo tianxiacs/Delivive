@@ -187,6 +187,7 @@ namespace Delivive.Controllers
 
         public ActionResult addMenuAction(FoodModel model)
         {
+            int result2 = 0;
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
@@ -200,17 +201,21 @@ namespace Delivive.Controllers
                 {
                     cmd.Connection = con;
                     con.Open();
-                    cmd.ExecuteNonQuery();
+                    result2 = cmd.ExecuteNonQuery();
                     con.Close();
                 }
 
-                return Json("Submit Succesfully!", JsonRequestBehavior.AllowGet);
+                if (result2 > 0)
+                    return RedirectToAction("SuccessPage", "Home");
+                else
+                    return RedirectToAction("ErrorPage", "Home");
             }
         }
 
         // NOT DONE YET
         public ActionResult PlaceOrder(List<FoodModel> foods)
         {
+            int result2 = 0;
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
@@ -256,7 +261,11 @@ namespace Delivive.Controllers
                     con.Close();
                 }
 
-                return Json("Successfully");
+
+                if (result2 > 0)
+                    return RedirectToAction("SuccessPage", "Home");
+                else
+                    return RedirectToAction("ErrorPage", "Home");
             }
 
             return Json("Successfully");
