@@ -52,7 +52,7 @@ namespace Delivive.Controllers
                 string sql = @"SELECT *, d.address as cust_Addr FROM [Order] a INNER JOIN [Restaurant] b on a.Restaurant_id = b.Restaurant_id
                             INNER JOIN end_user c ON b.User_id = c.User_id
                             INNER JOIN Customer d ON d.Customer_id = a.Customer_id
-                            WHERE a.Customer_id = " + 3 + ";";
+                            WHERE a.Customer_id = " + Session["Customer_id"] + ";";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;

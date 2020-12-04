@@ -20,6 +20,7 @@ namespace Delivive.Controllers
 
         public ActionResult submitRestaurantApplication(RestaurantApplicationModel viewModel)
         {
+            int result = 0;
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
@@ -33,11 +34,14 @@ namespace Delivive.Controllers
                 {
                     cmd.Connection = con;
                     con.Open();
-                    cmd.ExecuteNonQuery();
+                    result= cmd.ExecuteNonQuery();
                     con.Close();
                 }
 
-                return Json("Submit Succesfully!", JsonRequestBehavior.AllowGet);
+                if (result > 0)
+                    return RedirectToAction("SuccessPage", "Home");
+                else
+                    return RedirectToAction("ErrorPage", "Home");
             }
         }
 
@@ -151,7 +155,7 @@ namespace Delivive.Controllers
             {
                 List<FoodModel> result = new List<FoodModel>();
                 string sql = "SELECT * FROM [Food]"
-                            + " WHERE Restaurant_id = " + 1 + ";";
+                            + " WHERE Restaurant_id = " + Session["Restaurant_id"].ToString() + ";";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;
@@ -177,7 +181,7 @@ namespace Delivive.Controllers
 
             FoodModel viewModel = new FoodModel();
             //viewModel.Restaurant_id = int.Parse( Session["Restaurant_id"].ToString() );
-            viewModel.Restaurant_id = 1;
+            viewModel.Restaurant_id = Convert.ToInt32(Session["Restaurant_id"]);
             return View(viewModel);
         }
 

@@ -130,6 +130,7 @@ namespace Delivive.Controllers
                 }
 
                 Session["UserName"] = model.Name;
+                Session["UserId"] = user_id;
                 using (SqlConnection con = new SqlConnection(constr))
                 {
                     string sql = "SELECT count(*) FROM End_User AS E,Customer AS C WHERE E.User_id = C.User_id AND e.user_id =" + user_id;
@@ -141,8 +142,30 @@ namespace Delivive.Controllers
                         con.Close();
                     }
                 }
-                if(count > 0)
+                if (count > 0)
+                {
                     Session["UserType"] = "Customer";
+                    using (SqlConnection con = new SqlConnection(constr))
+                    {
+                        string sql = "SELECT C.customer_id FROM End_User AS E,Customer AS C WHERE E.User_id = C.User_id AND e.user_id =" + user_id;
+                        using (SqlCommand cmd = new SqlCommand(sql))
+                        {
+                            cmd.Connection = con;
+                            con.Open();
+                            using (SqlDataReader sdr = cmd.ExecuteReader())
+                            {
+                                while (sdr.Read())
+                                {
+
+                                    Session["CustomerId"] = Convert.ToInt32(sdr["customer_id"]);
+                                }
+                            }
+                            con.Close();
+                        }
+                    }
+                   
+                }
+                 
                 using (SqlConnection con = new SqlConnection(constr))
                 {
                     string sql = "SELECT count(*) FROM End_User AS E,Driver AS D WHERE E.User_id = D.User_id AND e.user_id =" + user_id;
@@ -155,10 +178,31 @@ namespace Delivive.Controllers
                     }
                 }
                 if (count > 0)
+                {
+                    using (SqlConnection con = new SqlConnection(constr))
+                    {
+                        string sql = "SELECT D.Driver_id FROM End_User AS E,Driver AS D WHERE E.User_id = D.User_id AND e.user_id =" + user_id;
+                        using (SqlCommand cmd = new SqlCommand(sql))
+                        {
+                            cmd.Connection = con;
+                            con.Open();
+                            using (SqlDataReader sdr = cmd.ExecuteReader())
+                            {
+                                while (sdr.Read())
+                                {
+
+                                    Session["Driver_id"] = Convert.ToInt32(sdr["Driver_id"]);
+                                }
+                            }
+                            con.Close();
+                        }
+                    }
                     Session["UserType"] = "Driver";
+                }
+                
                 using (SqlConnection con = new SqlConnection(constr))
                 {
-                    string sql = "SELECT count(*) FROM End_User AS E,Restaurant AS R WHERE E.User_id = R.User_id AND e.user_id =" + user_id;
+                    string sql = "SELECT  count(*) FROM End_User AS E,Restaurant AS R WHERE E.User_id = R.User_id AND e.user_id =" + user_id;
                     using (SqlCommand cmd = new SqlCommand(sql))
                     {
                         cmd.Connection = con;
@@ -168,7 +212,28 @@ namespace Delivive.Controllers
                     }
                 }
                 if (count > 0)
+                {
+                    using (SqlConnection con = new SqlConnection(constr))
+                    {
+                        string sql = "SELECT R.restaurant_id FROM End_User AS E, Restaurant AS R WHERE E.User_id = R.User_id AND e.user_id = " + user_id;
+                        using (SqlCommand cmd = new SqlCommand(sql))
+                        {
+                            cmd.Connection = con;
+                            con.Open();
+                            using (SqlDataReader sdr = cmd.ExecuteReader())
+                            {
+                                while (sdr.Read())
+                                {
+
+                                    Session["restaurant_id"] = Convert.ToInt32(sdr["restaurant_id"]);
+                                }
+                            }
+                            con.Close();
+                        }
+                    }
                     Session["UserType"] = "Restaurant";
+                }
+                    
 
                 Session["UserName"] = model.Name;
                 //Session["UserType"] = model.Name;
