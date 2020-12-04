@@ -1,7 +1,23 @@
-﻿
-@foreach (var item in ViewBag.Result)
-{
-    <tr>
-        <td>@item.Order_id</td>
-    </tr>
-}
+﻿@using Delivive.Models;
+
+@model IEnumerable<OrderModel>
+
+<table>
+    @foreach (OrderModel item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Order_id</td>
+            <td>@item.Time_placed</td>
+            <td>@item.Time_delivery</td>
+            <td>@item.Address</td>
+            <td><input type="button" value="Order Detail" id="@item.Order_id" onclick="viewOrder(@item.Order_id)" /></td>
+        </tr>
+    }
+</table>
+
+    <script>
+        function viewOrder(orderId) {
+            window.location.href = "/Order/OrderDetail?orderId=" + orderId;
+        }
+    </script>

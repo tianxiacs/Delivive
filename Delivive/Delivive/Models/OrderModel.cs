@@ -12,5 +12,9 @@ namespace Delivive.Models
         public DateTime Time_delivery { get; set; }
 
         public string Name { get; set; }
+
+        public string Delivery_status { get; set; }
+
+        public string Address { get; set; }
     }
 }

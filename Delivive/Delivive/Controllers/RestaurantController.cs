@@ -57,8 +57,10 @@ namespace Delivive.Controllers
                 List<OrderModel> result = new List<OrderModel>();
                 //string sql = "SELECT * FROM [Order]"
                 //            + " WHERE Restaurant_id = " + restaurant_id + ";";
-                string sql = "SELECT * FROM [Order]"
-                            + " WHERE Restaurant_id = " + 1 + ";";
+                string sql = @"SELECT *, d.address as cust_Addr FROM [Order] a INNER JOIN [Restaurant] b on a.Restaurant_id = b.Restaurant_id
+                            INNER JOIN end_user c ON b.User_id = c.User_id 
+                            INNER JOIN Customer d ON d.Customer_id = a.Customer_id 
+                            WHERE a.Restaurant_id = " + 1 + ";";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;
@@ -69,18 +71,18 @@ namespace Delivive.Controllers
                         {
                             result.Add(new OrderModel
                             {
+                                Name = sdr["Name"].ToString(),
                                 Order_id = Convert.ToInt32(sdr["Order_id"]),
-                                //Business_hour = sdr["Business_hour"].ToString(),
-                                //Address = sdr["Address"].ToString(),
-                                //User_id = Convert.ToInt32(sdr["User_id"].ToString()),
+                                Time_placed = DateTime.Parse(sdr["Time_placed"].ToString()),
+                                Time_delivery = DateTime.Parse(sdr["Time_delivery"].ToString()),
+                                Address = sdr["cust_Addr"].ToString(),
                             });
                         }
                     }
                     con.Close();
                 }
 
-                ViewBag.Result = result;
-                return View();
+                return View(result);
                 //return Json(result, JsonRequestBehavior.AllowGet);
             }
         }

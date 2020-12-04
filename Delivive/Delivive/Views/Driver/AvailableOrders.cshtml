@@ -1,16 +1,18 @@
 ﻿@using Delivive.Models;
 @model IEnumerable<OrderModel>
 
-
-@foreach (OrderModel item in Model)
-{
-    <tr>
-        <td>@item.Order_id</td>
-        <td>@item.Time_placed</td>
-        <td>@item.Time_delivery</td>
-        <td><input type="button" value="Delivery this order" id="@item.Order_id" onclick="DeliveryOrder(@item.Order_id)" /></td>
-    </tr>
-}
+<table>
+    @foreach (OrderModel item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Time_placed</td>
+            @*<td>@item.Time_delivery</td>*@
+            <td>@item.Address</td>
+            <td><input type="button" value="Delivery this order" id="@item.Order_id" onclick="DeliveryOrder(@item.Order_id)" /></td>
+        </tr>
+    }
+</table>
 
 <script>
     function DeliveryOrder(orderId) {

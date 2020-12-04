@@ -47,8 +47,9 @@ namespace Delivive.Controllers
             using (SqlConnection con = new SqlConnection(constr))
             {
                 List<OrderModel> result = new List<OrderModel>();
-                string sql = @"SELECT * FROM [Order] a INNER JOIN [Restaurant] b on a.Restaurant_id = b.Restaurant_id 
-                            INNER JOIN end_user c ON b.user_id = c.user_id 
+                string sql = @"SELECT *, d.address as temp1 FROM [Order] a INNER JOIN [Restaurant] b on a.Restaurant_id = b.Restaurant_id 
+                            INNER JOIN end_user c ON b.User_id = c.User_id 
+                            INNER JOIN Customer d ON d.Customer_id = a.Customer_id
                             where Delivery_status = 'Order Placed';";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
@@ -61,7 +62,9 @@ namespace Delivive.Controllers
                             result.Add(new OrderModel
                             {
                                 Name = sdr["Name"].ToString(),
+                                Time_placed = DateTime.Parse(sdr["Time_placed"].ToString()),
                                 Order_id = Convert.ToInt32(sdr["Order_id"]),
+                                Address = sdr["temp1"].ToString(),
                             });
                         }
                     }
@@ -70,6 +73,30 @@ namespace Delivive.Controllers
 
                 return View(result);
             }
+        }
+
+        public ActionResult AssignDriver(int orderId)
+        {
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                List<OrderModel> result = new List<OrderModel>();
+                string sql = @"UPDATE [dbo].[Order]
+                                SET [Driver_id] = 2,
+                                [Delivery_status] = 'On the way'
+                                WHERE Order_id = "+ orderId + ";";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                return Json("",JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("", JsonRequestBehavior.AllowGet);
         }
     }
 }

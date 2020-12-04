@@ -19,6 +19,16 @@ namespace Delivive.Controllers
             return View();
         }
 
+        public ActionResult SuccessPage()
+        {
+            return View();
+        }
+
+        public ActionResult ErrorPage()
+        {
+            return View();
+        }
+
         public List<RestaurantModel> GetRestaurants()
         {
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;

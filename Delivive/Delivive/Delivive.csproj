@@ -171,6 +171,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\DriverModel.cs" />
     <Compile Include="Models\DriverApplicationModel.cs" />
     <Compile Include="Models\EndUserModel.cs" />
@@ -247,6 +248,8 @@
     <Content Include="Views\Restaurant\GetRestaurants.cshtml" />
     <Content Include="Views\Order\OrderDetail.cshtml" />
     <Content Include="Views\Driver\AvailableOrders.cshtml" />
+    <Content Include="Views\Home\SuccessPage.cshtml" />
+    <Content Include="Views\Home\ErrorPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
