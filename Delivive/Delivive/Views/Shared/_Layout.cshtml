@@ -25,8 +25,8 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Customer Orders", "GetCustomerOrders", "Customer")</li>
                     @*@if (HttpContext.Current.User.Identity.Name == "Resturant")
-                    {*@
-                        <li>@Html.ActionLink("Restaurant Orders", "GetRestaurantOrders", "Restaurant")</li>
+        {*@
+                    <li>@Html.ActionLink("Restaurant Orders", "GetRestaurantOrders", "Restaurant")</li>
                     @*}*@
 
 
@@ -34,12 +34,13 @@
                     <li>@Html.ActionLink("Restaurant Application", "RestaurantApplication", "Restaurant")</li>
                     <li>@Html.ActionLink("Restaurants", "GetRestaurants", "Restaurant")</li>
                     <li>@Html.ActionLink("Add Menu", "AddMenu", "Restaurant")</li>
+                    <li>@Html.ActionLink("Available Orders", "AvailableOrders", "Driver")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content" style="padding-top:100px">
+    <div class="container body-content" style="padding-top:150px">
         @RenderBody()
         <hr />
         <footer>

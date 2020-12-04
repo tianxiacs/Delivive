@@ -165,6 +165,7 @@
     <Compile Include="Controllers\DriverController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -176,6 +177,7 @@
     <Compile Include="Models\FoodModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderDetailModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\RestaurantModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -243,6 +245,8 @@
     <Content Include="Views\Restaurant\AddMenu.cshtml" />
     <Content Include="Views\Restaurant\GetRestaurantMenu.cshtml" />
     <Content Include="Views\Restaurant\GetRestaurants.cshtml" />
+    <Content Include="Views\Order\OrderDetail.cshtml" />
+    <Content Include="Views\Driver\AvailableOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

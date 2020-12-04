@@ -40,5 +40,36 @@ namespace Delivive.Controllers
                 return Json("Submit Succesfully!", JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult AvailableOrders()
+        {
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                List<OrderModel> result = new List<OrderModel>();
+                string sql = @"SELECT * FROM [Order] a INNER JOIN [Restaurant] b on a.Restaurant_id = b.Restaurant_id 
+                            INNER JOIN end_user c ON b.user_id = c.user_id 
+                            where Delivery_status = 'Order Placed';";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            result.Add(new OrderModel
+                            {
+                                Name = sdr["Name"].ToString(),
+                                Order_id = Convert.ToInt32(sdr["Order_id"]),
+                            });
+                        }
+                    }
+                    con.Close();
+                }
+
+                return View(result);
+            }
+        }
     }
 }

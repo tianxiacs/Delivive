@@ -8,5 +8,12 @@
     <td>@item.Order_id</td>
     <td>@item.Time_placed</td>
     <td>@item.Time_delivery</td>
+    <td><input type="button" value="Order Detail" id="@item.Order_id" onclick="viewOrder(@item.Order_id)" /></td>
 </tr>
 }
+
+<script>
+    function viewOrder(orderId) {
+        window.location.href = "/Order/OrderDetail?orderId=" + orderId;
+    }
+</script>
