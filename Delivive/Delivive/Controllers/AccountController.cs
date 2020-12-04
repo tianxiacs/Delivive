@@ -122,7 +122,42 @@ namespace Delivive.Controllers
                     }
                 }
                 Session["UserName"] = model.Name;
-                Session["UserType"] = model.Name;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    string sql = "SELECT C.* FROM End_User AS E,Customer AS C WHERE E.User_id = C.User_id";
+                    using (SqlCommand cmd = new SqlCommand(sql))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        count = (int)cmd.ExecuteScalar();
+                        con.Close();
+                    }
+                }
+                Session["Customer"] = model.Name;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    string sql = "SELECT D.* FROM End_User AS E,Driver AS D WHERE E.User_id = D.User_id";
+                    using (SqlCommand cmd = new SqlCommand(sql))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        count = (int)cmd.ExecuteScalar();
+                        con.Close();
+                    }
+                }
+                Session["Driver"] = model.Name;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    string sql = "SELECT R.* FROM End_User AS E,Restaurant AS R WHERE E.User_id = R.User_id";
+                    using (SqlCommand cmd = new SqlCommand(sql))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        count = (int)cmd.ExecuteScalar();
+                        con.Close();
+                    }
+                }
+                Session["Restaurant"] = model.Name;
                 return RedirectToLocal(returnUrl);
             }
             else
