@@ -1,0 +1,31 @@
+﻿@using Delivive.Models;
+
+@model RestaurantApplicationModel
+
+<body>
+    <form action="submitRestaurantApplication">
+        @Html.LabelFor(i => i.Name)
+        @Html.TextBoxFor(i => i.Name)
+
+        @Html.LabelFor(i => i.Password)
+        @Html.TextBoxFor(i => i.Password)
+
+        @Html.LabelFor(i => i.Phone)
+        @Html.TextBoxFor(i => i.Phone)
+
+        @Html.LabelFor(i => i.Business_hour)
+        @Html.TextBoxFor(i => i.Business_hour)
+
+        @Html.LabelFor(i => i.Address)
+        @Html.TextBoxFor(i => i.Address)
+
+        @Html.LabelFor(i => i.Business_license)
+        @Html.CheckBoxFor(i => i.Business_license)
+
+        @Html.LabelFor(i => i.Short_answer)
+        @Html.TextAreaFor(i => i.Short_answer)
+        <input type="submit" />
+    </form>
+</body>
+
+
