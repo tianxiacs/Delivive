@@ -72,8 +72,8 @@
                 data: JSON.stringify({
                     foods: foods
                 }),
-                success: function (data) {
-
+             success: function (data) {
+                 window.location.href = "/Home/SuccessPage";
                 },
                 error: function (response) {
                     alert(response.responseText);

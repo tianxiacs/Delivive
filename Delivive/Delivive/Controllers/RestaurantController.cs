@@ -259,9 +259,9 @@ namespace Delivive.Controllers
 
 
                 if (result2 > 0)
-                    return RedirectToAction("SuccessPage", "Home");
+                    return Json("Success");
                 else
-                    return RedirectToAction("ErrorPage", "Home");
+                    return Json("Fail");
             }
 
             return Json("Successfully");

@@ -10,7 +10,7 @@
             <li>
                 @Html.ActionLink("Hello " + Session["UserName"].ToString() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
             </li>
-            <li>@Html.ActionLink("Test", "LogOut", "Account"));</li>
+            @*<li>@Html.ActionLink("Test", "LogOut", "Account")</li>*@
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
     }
