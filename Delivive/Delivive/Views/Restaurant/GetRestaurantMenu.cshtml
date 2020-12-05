@@ -7,7 +7,7 @@
 }
 
 <body>
-    <h1>All restaurants:</h1>
+    <h1>Menu:</h1>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -24,29 +24,32 @@
                     <td>@item.Food_name</td>
                     <td>@item.Price</td>
                     <td>@item.Description</td>
-                    <td><input type="button" class="btn" value="Add to Cart" id="@item.Food_id" onclick="makeOrder(@Json.Encode(item))" style="background-color:#64958f; color:#faf3dd; font-weight:500"/></td>
+                    <td><input type="button" class="btn" value="Add to Cart" id="@item.Food_id" onclick="makeOrder(@Json.Encode(item))" style="background-color:#64958f; color:#faf3dd; font-weight:500" /></td>
                 </tr>
             </tbody>
 
         }
     </table>
 
+    <h1>Shopping cart:</h1>
+
+    <p id="ShoppingCart">
+
+    </p>
+    <table>
+        <tbody>
+            <tr>
+                <td>@Html.Hidden("OrdersHidden")</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <input type="button" class="btn" value="Place Order" onclick="placeOrder()" style="background-color:#64958f; color:#faf3dd; font-weight:500" />
+
+
 </body>
 
-<p id="ShoppingCart">
 
-</p>
-<table>
-    <tbody>
-        <tr>
-            <td>@Html.Hidden("OrdersHidden")</td>
-        </tr>
-    </tbody>
-</table>
-
-
-
-<input type="button" class="btn" value="Place Order" onclick="placeOrder()" style="background-color:#64958f; color:#faf3dd; font-weight:500"/>
 
 <script>
     var foods = [];

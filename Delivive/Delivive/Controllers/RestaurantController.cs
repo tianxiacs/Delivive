@@ -253,7 +253,7 @@ namespace Delivive.Controllers
                 {
                     cmd.Connection = con;
                     con.Open();
-                    cmd.ExecuteNonQuery();
+                    result2 = cmd.ExecuteNonQuery();
                     con.Close();
                 }
 

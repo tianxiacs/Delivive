@@ -38,15 +38,15 @@
             @Html.HiddenFor(i => i.Restaurant_id)
             <div class="form-group">
                 <label>@Html.LabelFor(i => i.Food_name)</label>
-                @Html.TextBoxFor(i => i.Food_name, new { Class="form-control", placeholder = "Food name", Style="max-width:25%" })
+                @Html.TextBoxFor(i => i.Food_name, new { Class="form-control", placeholder = "Food name", Style = "max-width:300px" })
             </div>
             <div class="form-group">
                 <label>@Html.LabelFor(i => i.Price)</label>
-                @Html.TextBoxFor(i => i.Price, new { Class = "form-control", placeholder = "Price", Style = "max-width:25%" })
+                @Html.TextBoxFor(i => i.Price, new { Class = "form-control", placeholder = "Price", Style = "max-width:300px" })
             </div>
             <div class="form-group">
                 <label>@Html.LabelFor(i => i.Description)</label>
-                @Html.TextAreaFor(i => i.Description, new { Class = "form-control", placeholder = "Description", Style = "max-width:30%" })
+                @Html.TextAreaFor(i => i.Description, new { Class = "form-control", placeholder = "Description", Style = "max-width:500px" })
             </div>
             
             <button type="submit" class="btn" style="background-color:#64958f; color:#faf3dd; font-weight:500">Submit</button>

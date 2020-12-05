@@ -157,7 +157,7 @@ namespace Delivive.Controllers
                                 while (sdr.Read())
                                 {
 
-                                    Session["CustomerId"] = Convert.ToInt32(sdr["customer_id"]);
+                                    Session["Customer_id"] = Convert.ToInt32(sdr["customer_id"]);
                                 }
                             }
                             con.Close();

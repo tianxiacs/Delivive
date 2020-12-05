@@ -13,25 +13,25 @@
 
             <div class="form-group">
                 <label>@Html.LabelFor(i => i.Name)</label>
-                @Html.TextBoxFor(i => i.Name, new { Class = "form-control", placeholder = "Name", Style = "max-width:25%" })
+                @Html.TextBoxFor(i => i.Name, new { Class = "form-control", placeholder = "Name", Style = "max-width:300px" })
             </div>
             <div class="form-group">
                 <label>@Html.LabelFor(i => i.Password)</label>
-                @Html.TextBoxFor(i => i.Password, new { Class = "form-control", Type = "password", placeholder = "Password", Style = "max-width:25%" })
+                @Html.TextBoxFor(i => i.Password, new { Class = "form-control", Type = "password", placeholder = "Password", Style = "max-width:300px" })
             </div>
             <div class="form-group">
                 <label>@Html.LabelFor(i => i.Phone)</label>
-                @Html.TextBoxFor(i => i.Phone, new { Class = "form-control", maxlength = "10", placeholder = "Phone number", Style = "max-width:25%" })
+                @Html.TextBoxFor(i => i.Phone, new { Class = "form-control", maxlength = "10", placeholder = "Phone number", Style = "max-width:300px" })
                 <small class="form-text text-muted">Please enter 10-digit phone number.</small>
             </div>
             <div class="form-group">
                 <label>@Html.LabelFor(i => i.Business_hour)</label>
-                @Html.TextBoxFor(i => i.Business_hour, new { Class = "form-control", placeholder = "Business hour", Style = "max-width:25%" })
+                @Html.TextBoxFor(i => i.Business_hour, new { Class = "form-control", placeholder = "Business hour", Style = "max-width:300px" })
                 <small class="form-text text-muted">Please enter your regular business hour.</small>
             </div>
             <div class="form-group">
                 <label>@Html.LabelFor(i => i.Address)</label>
-                @Html.TextBoxFor(i => i.Address, new { Class = "form-control", placeholder = "Address", Style = "max-width:25%" })
+                @Html.TextBoxFor(i => i.Address, new { Class = "form-control", placeholder = "Address", Style = "max-width:300px" })
             </div>
             <div class="form-group">
                 <label>@Html.LabelFor(i => i.Business_license)</label>
@@ -40,7 +40,7 @@
             </div>
             <div class="form-group">
                 <label>@Html.LabelFor(i => i.Short_answer)</label>
-                @Html.TextAreaFor(i => i.Short_answer, new { Class = "form-control", placeholder = "Please explain briefly how you qualify as a small local restaurant.", Style = "max-width:50%" })
+                @Html.TextAreaFor(i => i.Short_answer, new { Class = "form-control", placeholder = "Please explain briefly how you qualify as a small local restaurant.", Style = "max-width:500px" })
             </div>
 
             <button type="submit" class="btn" style="background-color:#64958f; color:#faf3dd; font-weight:500">Submit</button>

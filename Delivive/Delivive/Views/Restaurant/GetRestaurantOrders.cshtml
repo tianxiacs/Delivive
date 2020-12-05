@@ -2,22 +2,42 @@
 
 @model IEnumerable<OrderModel>
 
-<table>
-    @foreach (OrderModel item in Model)
-    {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Order_id</td>
-            <td>@item.Time_placed</td>
-            <td>@item.Time_delivery</td>
-            <td>@item.Address</td>
-            <td><input type="button" value="Order Detail" id="@item.Order_id" onclick="viewOrder(@item.Order_id)" /></td>
-        </tr>
-    }
-</table>
+@{
+    ViewBag.Title = "Restaurant Orders";
+}
 
-    <script>
-        function viewOrder(orderId) {
-            window.location.href = "/Order/OrderDetail?orderId=" + orderId;
+<body>
+    <h1>Menu:</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Restaurant</th>
+                <th scope="col">Order#</th>
+                <th scope="col">Time of Order</th>
+                <th scope="col">Time of Delivery</th>
+                <th scope="col">Address</th>
+                <th scope="col">Details</th>
+            </tr>
+        </thead>
+        @foreach (OrderModel item in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Order_id</td>
+                    <td>@item.Time_placed</td>
+                    <td>@item.Time_delivery</td>
+                    <td>@item.Address</td>
+                    <td><input type="button" value="Order Detail" id="@item.Order_id" onclick="viewOrder(@item.Order_id)" class="btn" style="background-color:#64958f; color:#faf3dd; font-weight:500"/></td>
+                </tr>
+            </tbody>
+
         }
-    </script>
+    </table>
+</body>
+
+<script>
+    function viewOrder(orderId) {
+        window.location.href = "/Order/OrderDetail?orderId=" + orderId;
+    }
+</script>

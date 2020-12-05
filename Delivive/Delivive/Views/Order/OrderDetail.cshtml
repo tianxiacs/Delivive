@@ -1,16 +1,37 @@
 ﻿@using Delivive.Models;
 @model IEnumerable<OrderDetailModel>
 
-<table>
-    @foreach (OrderDetailModel item in Model)
-    {
-        <tr>
-            <td>@item.Food_name</td>
-            <td>@item.Price</td>
-            <td>@item.Quantity</td>
-        </tr>
-    }
-</table>
+@{
+    ViewBag.Title = "Order Details";
+}
+
+<body>
+    <h1>Order Details:</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Food item</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+            </tr>
+        </thead>
+        @foreach (OrderDetailModel item in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>@item.Food_name</td>
+                    <td>@item.Price</td>
+                    <td>@item.Quantity</td>
+                </tr>
+            </tbody>
+        }
+    </table>
+
+    <input type="button" value="Rate and Comment" class="btn" style="background-color:#64958f; color:#faf3dd; font-weight:500" />
+
+</body>
+
+
 <script>
     function viewOrder(orderId) {
         window.location.href = "/Order/OrderDetail?orderId=" + orderId;
