@@ -1,18 +1,41 @@
 ﻿@using Delivive.Models;
+
 @model IEnumerable<RestaurantModel>
 
-<table>
-    @foreach (RestaurantModel item in Model)
-    {
-    <tr>
-        <td>@item.Name</td>
-        <td>@item.Phone</td>
-        <td>@item.Business_hour</td>
-        <td>@item.Address</td>
-        <td><input type="button" value="See Menu" id="@item.Restaurant_id" onclick="seeMenu(@item.Restaurant_id)"></td>
-    </tr>
-    }
-</table>
+@{
+    ViewBag.Title = "Restaurants";
+}
+
+<body>
+    <h1>All restaurants:</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Restaurant Name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Business Hour</th>
+                <th scope="col">Address</th>
+                <th scope="col">Menu</th>
+            </tr>
+        </thead>
+        @foreach (RestaurantModel item in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Phone</td>
+                    <td>@item.Business_hour</td>
+                    <td>@item.Address</td>
+                    <td><input type="button" class="btn" value="See Menu" id="@item.Restaurant_id" onclick="seeMenu(@item.Restaurant_id)" style="background-color:#64958f; color:#faf3dd; font-weight:500"></td>
+                </tr>
+            </tbody>
+
+        }
+    </table>
+
+</body>
+
+
 <script>
     function seeMenu(rest_id) {
         window.location.href = '@Url.Action("GetRestaurantMenu", "Restaurant", new { restaurant_id = "REPLACE" })'.replace("REPLACE", rest_id);

@@ -4,21 +4,22 @@
     background-color: #faf3dd;
     font-family: 'Raleway', sans-serif;
     color: #065c6f;
+    font-weight: 600;
 }
 
 .navbar {
     background-color: #64958f;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
 }
 
 .navbar-inverse .navbar-nav > li > a {
     color: #ffbb91;
-    font-weight:400;
+    font-weight:600;
 }
 
 .navbar-inverse .navbar-brand {
     color: #faf3dd;
-    font-weight: 400;
+    font-weight: 600;
 }
 
 /*Set padding to keep content from hitting the edges */
@@ -39,4 +40,10 @@ input,
 select,*/
 textarea {
     max-width: 280px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, white, rgba(0, 0, 0, 0.75), white);
 }

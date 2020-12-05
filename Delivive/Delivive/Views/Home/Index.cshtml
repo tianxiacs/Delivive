@@ -1,14 +1,14 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home";
 }
 
 <!-- Section 1 - Jumbotron with large image -->
 <section id="section1" class="jumbotron-fluid text-center">
     <div>
         <div id="logoDiv">
-            <img id="logo" src="images/logo.png">
+            <img id="logo" src="~/images/logo.png" />
             <br><br>
-            <h1 id="open7">Helping small local restaurants!</h1>
+            <h1 id="open7" style="margin-top:0">Helping small local restaurants!</h1>
             <br>
             <br>
         </div>
@@ -18,13 +18,13 @@
 </section>
 
 <!-- Section 2 - Intro  -->
-<section class="my-5">
+<section class="my-5" style="padding-bottom:50px">
     <div class="container">
         <div class="row align-items-center">
 
             <!-- Part One - Image  -->
             <div class="col-md-5 order-2 order-md-1">
-                <img src="images/sign.jpg" alt="" class="img-fluid">
+                <img src="~/images/sign.jpg" style="max-width:100%" alt="">
             </div>
 
             <!-- Part Two - Intro  -->
@@ -37,12 +37,12 @@
                             We are a non-profit platform for
                             small local restaurants impacted by COVID-19 to advertise themselves and benefit from
                             volunteer-based delivery services. The name “Delivive” comes from “deliver” and “revive”,
-                            which is reflective of our goals that aim to revive the impacted
-                            small local restaurants through volunteer delivery services.
+                            which reflects our goals that aim to revive the impacted
+                            small local restaurants.
                         </p>
                         <p>
                             What makes “Delivive” unique is its non-profit nature. With the help from “Delivive” and its volunteers, small local restaurants can have a chance to
-                            reopen and stay in business. Local residents can once again enjoy the food from their favourite
+                            reopen and stay in business. Local residents can once again enjoy their favourite
                             local restaurants while staying home from social gathering.
                         </p>
                     </div>
@@ -51,3 +51,14 @@
         </div>
     </div>
 </section>
+
+<style>
+    p {
+        line-height:2;
+    }
+    #intro {
+        font-size:1.45rem;
+        padding-left:40px;
+        padding-right:40px;
+    }
+</style>

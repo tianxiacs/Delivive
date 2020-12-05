@@ -2,30 +2,54 @@
 
 @model DriverApplicationModel
 
+@{
+    ViewBag.Title = "Driver Application";
+}
+
 <body>
-    <form action="submitDriverApplication">
-        @Html.LabelFor(i => i.Name)
-        @Html.TextBoxFor(i => i.Name)
+    <div style="margin-top:20px">
+        <h1>Please fill out this application form:</h1>
+        <form action="submitDriverApplication" style="margin-top:20px">
 
-        @Html.LabelFor(i => i.Password)
-        @Html.TextBoxFor(i => i.Password)
+            <div class="form-group">
+                <label>@Html.LabelFor(i => i.Name)</label>
+                @Html.TextBoxFor(i => i.Name, new { Class = "form-control", placeholder = "Name", Style = "max-width:25%" })
+            </div>
+            <div class="form-group">
+                <label>@Html.LabelFor(i => i.Password)</label>
+                @Html.TextBoxFor(i => i.Password, new { Class = "form-control", Type = "password", placeholder = "Password", Style = "max-width:25%" })
+            </div>
+            <div class="form-group">
+                <label>@Html.LabelFor(i => i.Phone)</label>
+                @Html.TextBoxFor(i => i.Phone, new { Class = "form-control", maxlength = "10", placeholder = "Phone number", Style = "max-width:25%" })
+                <small class="form-text text-muted">Please enter 10-digit phone number.</small>
+            </div>
+            <div class="form-group">
+                <label>@Html.LabelFor(i => i.Availablility)</label>
+                @Html.TextBoxFor(i => i.Availablility, new { Class = "form-control", placeholder = "Availability", Style = "max-width:25%" })
+                <small class="form-text text-muted">Please enter your availability.</small>
+            </div>
+            <div class="form-group">
+                <label>@Html.LabelFor(i => i.Driver_record)</label>
+                @Html.CheckBoxFor(i => i.Driver_record)
+                <small class="form-text text-muted">Please check this if you have a clean driving record.</small>
+            </div>
+            <div class="form-group">
+                <label>@Html.LabelFor(i => i.Driver_license)</label>
+                @Html.CheckBoxFor(i => i.Driver_license)
+                <small class="form-text text-muted">Please check this if you have a valid driver's license.</small>
+            </div>
+            <div class="form-group">
+                <label>@Html.LabelFor(i => i.Short_answer)</label>
+                @Html.TextAreaFor(i => i.Short_answer, new { Class = "form-control", placeholder = "Please explain briefly how you qualify as a volunteer driver.", Style = "max-width:50%" })
+            </div>
 
-        @Html.LabelFor(i => i.Phone)
-        @Html.TextBoxFor(i => i.Phone)
+            <button type="submit" class="btn" style="background-color:#64958f; color:#faf3dd; font-weight:500">Submit</button>
 
-        @Html.LabelFor(i => i.Availablility)
-        @Html.TextBoxFor(i => i.Availablility)
 
-        @Html.LabelFor(i => i.Driver_record)
-        @Html.CheckBoxFor(i => i.Driver_record)
+        </form>
+    </div>
 
-        @Html.LabelFor(i => i.Driver_license)
-        @Html.CheckBoxFor(i => i.Driver_license)
-
-        @Html.LabelFor(i => i.Short_answer)
-        @Html.TextAreaFor(i => i.Short_answer)
-        <input type="submit" />
-    </form>
 </body>
 
 
