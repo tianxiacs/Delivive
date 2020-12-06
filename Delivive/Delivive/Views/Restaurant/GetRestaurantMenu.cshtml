@@ -30,20 +30,13 @@
 
         }
     </table>
-
+    
     <h1>Shopping cart:</h1>
 
     <p id="ShoppingCart">
 
     </p>
-    <table>
-        <tbody>
-            <tr>
-                <td>@Html.Hidden("OrdersHidden")</td>
-            </tr>
-        </tbody>
-    </table>
-
+    <input type='button' value='Clear Cart' onclick='clearFoods()' class="btn" style="background-color:#d35d6e; color:#faf3dd; font-weight:500">
     <input type="button" class="btn" value="Place Order" onclick="placeOrder()" style="background-color:#64958f; color:#faf3dd; font-weight:500" />
 
 
@@ -53,13 +46,10 @@
 
 <script>
     var foods = [];
+    var count = 0;
     function makeOrder(food) {
 
-        document.getElementById('ShoppingCart').innerHTML = document.getElementById('ShoppingCart').innerHTML + food.Food_name;
-        $("#OrdersHidden").val(function () {
-            return this.value + JSON.stringify(food);
-        });
-        debugger
+        document.getElementById('ShoppingCart').innerHTML = document.getElementById('ShoppingCart').innerHTML + food.Food_name + "<br/>";
         foods.push(food);
     }
 
@@ -79,6 +69,11 @@
                     alert(response.responseText);
                 }
             })
+    }
+
+    function clearFoods() {
+        foods = [];
+        document.getElementById('ShoppingCart').innerHTML = "";
     }
 </script>
 

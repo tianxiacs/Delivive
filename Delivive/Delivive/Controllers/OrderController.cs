@@ -19,7 +19,7 @@ namespace Delivive.Controllers
             {
                 List<OrderDetailModel> result = new List<OrderDetailModel>();
                 string sql = @"SELECT * FROM [Order_Detail] a INNER JOIN [Food] b on a.Restaurant_id = b.Restaurant_id 
-                            AND a.Food_id = b.Food_id;";
+                            AND a.Food_id = b.Food_id WHERE order_id = "+orderId+";";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;
