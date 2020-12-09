@@ -28,7 +28,13 @@
                     <td>@item.Time_placed</td>
                     <td>@item.Time_delivery</td>
                     <td>@item.Address</td>
-                    <td><input type="button" value="Order Detail" id="@item.Order_id" onclick="viewOrder(@item.Order_id)" class="btn" style="background-color:#64958f; color:#faf3dd; font-weight:500"/></td>
+                    <td><input type="button" value="Order Detail" id="@item.Order_id" onclick="viewOrder(@item.Order_id)" class="btn" style="background-color:#64958f; color:#faf3dd; font-weight:500" /></td>
+                    @if (item.Delivery_status == "Order Placed")
+                    {
+                        <td><input type="button" value="Accept" id="@item.Order_id" onclick="AcceptOrder(@item.Order_id)" class="btn" style="background-color:#64958f; color:#faf3dd; font-weight:500" /></td>
+                        <td><input type="button" value="Decline" id="@item.Order_id" onclick="DeclineOrder(@item.Order_id)" class="btn" style="background-color:#64958f; color:#faf3dd; font-weight:500" /></td>
+                    }
+
                 </tr>
             </tbody>
 
@@ -39,5 +45,13 @@
 <script>
     function viewOrder(orderId) {
         window.location.href = "/Order/OrderDetail?orderId=" + orderId;
+    }
+
+    function AcceptOrder(orderId) {
+        window.location.href = "/Order/AcceptOrder?orderId=" + orderId;
+    }
+
+    function DeclineOrder(orderId) {
+        window.location.href = "/Order/DeclineOrder?orderId=" + orderId;
     }
 </script>

@@ -83,7 +83,7 @@ namespace Delivive.Controllers
                 string sql = @"SELECT *, d.address as temp1 FROM [Order] a INNER JOIN [Restaurant] b on a.Restaurant_id = b.Restaurant_id 
                             INNER JOIN end_user c ON b.User_id = c.User_id 
                             INNER JOIN Customer d ON d.Customer_id = a.Customer_id
-                            where Delivery_status = 'Order Placed';";
+                            where Delivery_status = 'Order Accepted';";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;
@@ -118,7 +118,7 @@ namespace Delivive.Controllers
                 string sql = @"SELECT *, d.address as temp1 FROM [Order] a INNER JOIN [Restaurant] b on a.Restaurant_id = b.Restaurant_id 
                             INNER JOIN end_user c ON b.User_id = c.User_id 
                             INNER JOIN Customer d ON d.Customer_id = a.Customer_id
-                            where Delivery_status = 'Order Placed';";
+                            where Delivery_status = 'Order Accepted';";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;

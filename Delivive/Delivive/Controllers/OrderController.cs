@@ -79,5 +79,52 @@ namespace Delivive.Controllers
             }
         }
 
+        public ActionResult AcceptOrder(int orderId)
+        {
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                List<OrderModel> result = new List<OrderModel>();
+                string sql = @"UPDATE [dbo].[Order]
+                                SET [Driver_id] = 2,
+                                [Delivery_status] = 'Order Accepted'
+                                WHERE Order_id = " + orderId + ";";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                return RedirectToAction("SuccessPage", "Home");
+            }
+
+            return RedirectToAction("SuccessPage", "Home");
+        }
+
+        public ActionResult DeclineOrder(int orderId)
+        {
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                List<OrderModel> result = new List<OrderModel>();
+                string sql = @"UPDATE [dbo].[Order]
+                                SET [Driver_id] = 2,
+                                [Delivery_status] = 'Order Declined'
+                                WHERE Order_id = " + orderId + ";";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                return RedirectToAction("SuccessPage", "Home");
+            }
+
+            return RedirectToAction("SuccessPage", "Home");
+        }
     }
 }

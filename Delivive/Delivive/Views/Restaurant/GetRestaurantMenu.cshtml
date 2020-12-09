@@ -30,7 +30,7 @@
 
         }
     </table>
-    
+
     <h1>Shopping cart:</h1>
 
     <p id="ShoppingCart">
@@ -54,21 +54,28 @@
     }
 
     function placeOrder() {
-         $.ajax({
-             url: '@Url.Action("PlaceOrder", "Restaurant")',
-             contentType: 'application/json; charset=utf-8',
-             type: "POST",
-             dataType: 'json',
-                data: JSON.stringify({
-                    foods: foods
-                }),
-             success: function (data) {
-                 window.location.href = "/Home/SuccessPage";
-                },
-                error: function (response) {
-                    alert(response.responseText);
-                }
-            })
+        debugger
+        if ('@(Session["UserType"] == null ? "" : @Session["UserType"].ToString())' != "Customer") {
+            alert("Please log in first!");
+            return;
+        }
+
+
+        $.ajax({
+            url: '@Url.Action("PlaceOrder", "Restaurant")',
+            contentType: 'application/json; charset=utf-8',
+            type: "POST",
+            dataType: 'json',
+            data: JSON.stringify({
+                foods: foods
+            }),
+            success: function (data) {
+                window.location.href = "/Home/SuccessPage";
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        })
     }
 
     function clearFoods() {
