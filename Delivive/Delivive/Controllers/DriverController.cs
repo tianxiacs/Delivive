@@ -45,6 +45,34 @@ namespace Delivive.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult submitDriverApplicationData(DriverApplicationModel viewModel)
+        {
+            int result = 0;
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string sql = "INSERT INTO End_User (Name,Phone,Password) VALUES ('" + viewModel.Name + "','" + viewModel.Phone + "','" + viewModel.Password + "');";
+
+                sql += "INSERT INTO Driver (Availability, User_id) VALUES ('" + viewModel.Availablility + "',(SELECT SCOPE_IDENTITY()));";
+
+                sql += "INSERT INTO Driver_Application (Driver_id, Driver_record, Driver_license, Short_answer, Driver_Decision)"
+                            + " VALUES ((SELECT SCOPE_IDENTITY()),'" + viewModel.Driver_license + "','" + viewModel.Driver_record + "','" + viewModel.Short_answer + "','false');";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    result = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (result > 0)
+                    return Json("Successfully submitted the driver application!");
+                else
+                    return Json("Error on submitting the driver application!");
+            }
+        }
+
         public ActionResult AvailableOrders()
         {
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
