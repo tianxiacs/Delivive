@@ -68,6 +68,7 @@ namespace Delivive.Controllers
                                 Time_placed = DateTime.Parse(sdr["Time_placed"].ToString()),
                                 Time_delivery = DateTime.Parse(sdr["Time_delivery"].ToString()),
                                 Address = sdr["cust_Addr"].ToString(),
+                                Delivery_status = sdr["Delivery_status"].ToString(),
                             });
                         }
                     }
@@ -107,6 +108,7 @@ namespace Delivive.Controllers
                                 Time_placed = DateTime.Parse(sdr["Time_placed"].ToString()),
                                 Time_delivery = DateTime.Parse(sdr["Time_delivery"].ToString()),
                                 Address = sdr["cust_Addr"].ToString(),
+                                Delivery_status = sdr["Delivery_status"].ToString(),
                             });
                         }
                     }

@@ -15,6 +15,7 @@
                 <th scope="col">Time of Order</th>
                 <th scope="col">Time of Delivery</th>
                 <th scope="col">Address</th>
+                <th scope="col">Status</th>
                 <th scope="col">Detail</th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@
                     <td>@item.Time_placed</td>
                     <td>@item.Time_delivery</td>
                     <td>@item.Address</td>
+                    <td>@item.Delivery_status</td>
                     <td><input type="button" value="Details" id="@item.Order_id" onclick="viewOrder(@item.Order_id)" class="btn" style="background-color:#64958f; color:#faf3dd; font-weight:500" /></td>
                 </tr>
             </tbody>
