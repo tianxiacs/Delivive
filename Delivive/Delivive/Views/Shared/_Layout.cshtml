@@ -37,6 +37,7 @@
                     @if ((Session["UserType"] == null ? "" : Session["UserType"].ToString()) == "Driver")
                     {
                         <li>@Html.ActionLink("Available Orders", "AvailableOrders", "Driver")</li>
+                        <li>@Html.ActionLink("My Deliveries", "MyDeliveries", "Driver")</li>
                     }
                     @if (Session["UserName"] == null)
                     {

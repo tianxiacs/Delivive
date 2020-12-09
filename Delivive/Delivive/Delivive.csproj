@@ -253,6 +253,7 @@
     <Content Include="Views\Home\SuccessPage.cshtml" />
     <Content Include="Views\Home\ErrorPage.cshtml" />
     <Content Include="Views\Restaurant\RestaurantApplication.cshtml" />
+    <Content Include="Views\Driver\MyDeliveries.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

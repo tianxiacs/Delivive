@@ -165,5 +165,65 @@ namespace Delivive.Controllers
 
             return RedirectToAction("SuccessPage", "Home");
         }
+
+        public ActionResult MyDeliveries()
+        {
+
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                List<OrderModel> result = new List<OrderModel>();
+                string sql = @"SELECT *, d.address as temp1 FROM [Order] a INNER JOIN [Restaurant] b on a.Restaurant_id = b.Restaurant_id 
+                            INNER JOIN end_user c ON b.User_id = c.User_id 
+                            INNER JOIN Customer d ON d.Customer_id = a.Customer_id
+                            where Delivery_status = 'On the way' AND Driver_id = " + Session["Driver_id"].ToString() +";" ;
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            result.Add(new OrderModel
+                            {
+                                Name = sdr["Name"].ToString(),
+                                Time_placed = DateTime.Parse(sdr["Time_placed"].ToString()),
+                                Order_id = Convert.ToInt32(sdr["Order_id"]),
+                                Address = sdr["temp1"].ToString(),
+                                Delivery_status = sdr["Delivery_status"].ToString(),
+                            });
+                        }
+                    }
+                    con.Close();
+                }
+
+                return View(result);
+            }
+        }
+
+        public ActionResult CompleteOrder(int orderId)
+        {
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                List<OrderModel> result = new List<OrderModel>();
+                string sql = "UPDATE [dbo].[Order] " + 
+                             "SET   [Delivery_status] = 'Order Completed'," +
+                                "Time_delivery = '" + DateTime.Now + "'" +
+                                " WHERE Order_id = " + orderId + ";";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                return RedirectToAction("SuccessPage", "Home");
+            }
+
+            return RedirectToAction("SuccessPage", "Home");
+        }
     }
 }

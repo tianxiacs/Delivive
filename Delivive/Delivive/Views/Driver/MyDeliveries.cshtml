@@ -1,0 +1,40 @@
+﻿@using Delivive.Models;
+
+@model IEnumerable<OrderModel>
+
+@{
+    ViewBag.Title = "Available Orders";
+}
+
+<body>
+    <h1>Menu:</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Restaurant</th>
+                <th scope="col">Time of Order Placement</th>
+                <th scope="col">Address</th>
+                <th scope="col">Deliver</th>
+            </tr>
+        </thead>
+        @foreach (OrderModel item in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Time_placed</td>
+                    @*<td>@item.Time_delivery</td>*@
+                    <td>@item.Address</td>
+                    <td><input type="button" value="Complete this order" id="@item.Order_id" onclick="CompleteOrder(@item.Order_id)" class="btn" style="background-color:#64958f; color:#faf3dd; font-weight:500" /></td>
+                </tr>
+            </tbody>
+
+        }
+    </table>
+</body>
+
+<script>
+    function CompleteOrder(orderId) {
+        window.location.href = "/Driver/CompleteOrder?orderId=" + orderId;
+    }
+</script>

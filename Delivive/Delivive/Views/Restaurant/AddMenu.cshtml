@@ -23,6 +23,7 @@
                     <td>@item.Food_name</td>
                     <td>@item.Price</td>
                     <td>@item.Description</td>
+                    <td><input type="button" class="btn" value="Delete" id="@item.Food_id" onclick="DeleteFood(@Json.Encode(item))" style="background-color:#64958f; color:#faf3dd; font-weight:500" /></td>
                 </tr>
             </tbody>
 
@@ -56,3 +57,24 @@
 
 
 </body>
+
+<script>
+    function DeleteFood(item) {
+        $.ajax({
+            url: '@Url.Action("DeleteFood", "Restaurant")',
+            contentType: 'application/json; charset=utf-8',
+            type: "POST",
+            dataType: 'json',
+            data: JSON.stringify({
+                food: item
+            }),
+            success: function (data) {
+                alert(data);
+                window.location.href = "/Restaurant/AddMenu"
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        })
+    }
+</script>
