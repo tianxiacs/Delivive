@@ -79,6 +79,40 @@ namespace Delivive.Controllers
             }
         }
 
+        public ActionResult AvailableOrdersData()
+        {
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                List<OrderModel> result = new List<OrderModel>();
+                string sql = @"SELECT *, d.address as temp1 FROM [Order] a INNER JOIN [Restaurant] b on a.Restaurant_id = b.Restaurant_id 
+                            INNER JOIN end_user c ON b.User_id = c.User_id 
+                            INNER JOIN Customer d ON d.Customer_id = a.Customer_id
+                            where Delivery_status = 'Order Placed';";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            result.Add(new OrderModel
+                            {
+                                Name = sdr["Name"].ToString(),
+                                Time_placed = DateTime.Parse(sdr["Time_placed"].ToString()),
+                                Order_id = Convert.ToInt32(sdr["Order_id"]),
+                                Address = sdr["temp1"].ToString(),
+                            });
+                        }
+                    }
+                    con.Close();
+                }
+
+                return Json(result,JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult AssignDriver(int orderId)
         {
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
