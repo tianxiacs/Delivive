@@ -45,6 +45,7 @@ namespace Delivive.Controllers
             }
         }
 
+        // Return Json for api call
         [HttpPost]
         public ActionResult submitDriverApplicationData(DriverApplicationModel viewModel)
         {
@@ -107,6 +108,7 @@ namespace Delivive.Controllers
             }
         }
 
+        // Return Json for api call
         public ActionResult AvailableOrdersData()
         {
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
