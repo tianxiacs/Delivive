@@ -86,8 +86,7 @@ namespace Delivive.Controllers
             {
                 List<OrderModel> result = new List<OrderModel>();
                 string sql = @"UPDATE [dbo].[Order]
-                                SET [Driver_id] = 2,
-                                [Delivery_status] = 'Order Accepted'
+                                SET [Delivery_status] = 'Order Accepted'
                                 WHERE Order_id = " + orderId + ";";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
@@ -110,8 +109,7 @@ namespace Delivive.Controllers
             {
                 List<OrderModel> result = new List<OrderModel>();
                 string sql = @"UPDATE [dbo].[Order]
-                                SET [Driver_id] = 2,
-                                [Delivery_status] = 'Order Declined'
+                                SET [Delivery_status] = 'Order Declined'
                                 WHERE Order_id = " + orderId + ";";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
