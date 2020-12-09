@@ -79,6 +79,44 @@ namespace Delivive.Controllers
             }
         }
 
+        public ActionResult GetCustomerOrdersData(int Customer_id)
+        {
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                List<OrderModel> result = new List<OrderModel>();
+                //string sql = "SELECT * FROM [Order]"
+                //            + " WHERE Customer_id = " + customer_id + ";";
+                string sql = @"SELECT *, d.address as cust_Addr FROM [Order] a INNER JOIN [Restaurant] b on a.Restaurant_id = b.Restaurant_id
+                            INNER JOIN end_user c ON b.User_id = c.User_id
+                            INNER JOIN Customer d ON d.Customer_id = a.Customer_id
+                            WHERE a.Customer_id = " + Customer_id + ";";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            result.Add(new OrderModel
+                            {
+                                Name = sdr["Name"].ToString(),
+                                Order_id = Convert.ToInt32(sdr["Order_id"]),
+                                Time_placed = DateTime.Parse(sdr["Time_placed"].ToString()),
+                                Time_delivery = DateTime.Parse(sdr["Time_delivery"].ToString()),
+                                Address = sdr["cust_Addr"].ToString(),
+                            });
+                        }
+                    }
+                    con.Close();
+                }
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+                //return Json(result, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult MakeCustomerOrder(int customer_id)
         {
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
