@@ -149,9 +149,10 @@ namespace Delivive.Controllers
             using (SqlConnection con = new SqlConnection(constr))
             {
                 List<OrderModel> result = new List<OrderModel>();
-                string sql = @"UPDATE [dbo].[Order] 
-                             SET   [Delivery_status] = 'On the way' 
-                                WHERE Order_id = "+ orderId + ";";
+                string sql = "UPDATE [dbo].[Order] "+
+                               " SET [Delivery_status] = 'On the way', " +
+                               " [Driver_id] = " + Session["Driver_id"] + 
+                               " WHERE Order_id = "+ orderId + ";";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;

@@ -102,6 +102,29 @@ namespace Delivive.Controllers
             return RedirectToAction("SuccessPage", "Home");
         }
 
+        public ActionResult AcceptOrderData(int orderId)
+        {
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                List<OrderModel> result = new List<OrderModel>();
+                string sql = @"UPDATE [dbo].[Order]
+                                SET [Delivery_status] = 'Order Accepted'
+                                WHERE Order_id = " + orderId + ";";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                return Json("Successfully accepted order!");
+            }
+
+            return Json("Successfully accepted order!");
+        }
+
         public ActionResult DeclineOrder(int orderId)
         {
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
@@ -124,5 +147,29 @@ namespace Delivive.Controllers
 
             return RedirectToAction("SuccessPage", "Home");
         }
+
+        public ActionResult DeclineOrderData(int orderId)
+        {
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                List<OrderModel> result = new List<OrderModel>();
+                string sql = @"UPDATE [dbo].[Order]
+                                SET [Delivery_status] = 'Order Declined'
+                                WHERE Order_id = " + orderId + ";";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                return Json("Successfully declined order!");
+            }
+
+            return Json("Successfully declined order!");
+        }
+
     }
 }

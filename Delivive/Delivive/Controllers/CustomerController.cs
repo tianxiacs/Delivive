@@ -61,12 +61,17 @@ namespace Delivive.Controllers
                     {
                         while (sdr.Read())
                         {
+                            DateTime? deliveryTime = null;
+                            if (sdr["Time_delivery"] != DBNull.Value)
+                            {
+                                deliveryTime = DateTime.Parse(sdr["Time_delivery"].ToString());
+                            }
                             result.Add(new OrderModel
                             {
                                 Name = sdr["Name"].ToString(),
                                 Order_id = Convert.ToInt32(sdr["Order_id"]),
                                 Time_placed = DateTime.Parse(sdr["Time_placed"].ToString()),
-                                Time_delivery = sdr["Time_delivery"].ToString().ToLower() == "null" ? null : DateTime.Parse(sdr["Time_delivery"].ToString() ),
+                                Time_delivery = deliveryTime,
                                 Address = sdr["cust_Addr"].ToString(),
                                 Delivery_status = sdr["Delivery_status"].ToString(),
                             });
@@ -101,12 +106,17 @@ namespace Delivive.Controllers
                     {
                         while (sdr.Read())
                         {
+                            DateTime? deliveryTime = null;
+                            if (sdr["Time_delivery"] != DBNull.Value)
+                            {
+                                deliveryTime = DateTime.Parse(sdr["Time_delivery"].ToString());
+                            }
                             result.Add(new OrderModel
                             {
                                 Name = sdr["Name"].ToString(),
                                 Order_id = Convert.ToInt32(sdr["Order_id"]),
                                 Time_placed = DateTime.Parse(sdr["Time_placed"].ToString()),
-                                Time_delivery = DateTime.Parse(sdr["Time_delivery"].ToString()),
+                                Time_delivery = deliveryTime,
                                 Address = sdr["cust_Addr"].ToString(),
                                 Delivery_status = sdr["Delivery_status"].ToString(),
                             });
