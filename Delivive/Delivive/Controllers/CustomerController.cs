@@ -66,7 +66,7 @@ namespace Delivive.Controllers
                                 Name = sdr["Name"].ToString(),
                                 Order_id = Convert.ToInt32(sdr["Order_id"]),
                                 Time_placed = DateTime.Parse(sdr["Time_placed"].ToString()),
-                                Time_delivery = DateTime.Parse(sdr["Time_delivery"].ToString()),
+                                Time_delivery = sdr["Time_delivery"].ToString().ToLower() == "null" ? null : DateTime.Parse(sdr["Time_delivery"].ToString() ),
                                 Address = sdr["cust_Addr"].ToString(),
                                 Delivery_status = sdr["Delivery_status"].ToString(),
                             });

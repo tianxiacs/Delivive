@@ -9,7 +9,7 @@ namespace Delivive.Models
     {
         public int Order_id { get; set; }
         public DateTime Time_placed { get; set; }
-        public DateTime Time_delivery { get; set; }
+        public DateTime? Time_delivery { get; set; }
 
         public string Name { get; set; }
 
