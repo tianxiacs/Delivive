@@ -15,7 +15,6 @@ using System.Web.Security;
 
 namespace Delivive.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -243,6 +242,178 @@ namespace Delivive.Controllers
             {
                 ModelState.AddModelError("", "Invalid login attempt.");
                 return View(model);
+            }
+        }
+
+        public ActionResult LogInData(LoginViewModel model)
+        {
+            int count = 0;
+
+            //var result = await SignInManager.PasswordSignInAsync(model.Name, model.Password, model.RememberMe, shouldLockout: false);
+            //switch (result)
+            //{
+            //    case SignInStatus.Success:
+            //        return RedirectToLocal(returnUrl);
+            //    case SignInStatus.LockedOut:
+            //        return View("Lockout");
+            //    case SignInStatus.RequiresVerification:
+            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+            //    case SignInStatus.Failure:
+            //    default:
+            //        ModelState.AddModelError("", "Invalid login attempt.");
+            //        return View(model);
+            //}
+
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string sql = "SELECT COUNT(*) FROM End_User WHERE Name = '" + model.Name + "' and Password = '" + model.Password + "'";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    count = (int)cmd.ExecuteScalar();
+                    con.Close();
+                }
+            }
+            if (count > 0)
+            {
+                int user_id = 0;
+                FormsAuthentication.SignOut();
+                Session.Clear();
+                FormsAuthentication.SetAuthCookie(model.Name, false);
+
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    string sql = "SELECT user_id FROM End_User WHERE Name = '" + model.Name + "' and Password = '" + model.Password + "'";
+                    using (SqlCommand cmd = new SqlCommand(sql))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                user_id = Convert.ToInt32(sdr["user_id"]);
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+
+                Session["UserName"] = model.Name;
+                Session["UserId"] = user_id;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    string sql = "SELECT count(*) FROM End_User AS E,Customer AS C WHERE E.User_id = C.User_id AND e.user_id =" + user_id;
+                    using (SqlCommand cmd = new SqlCommand(sql))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        count = (int)cmd.ExecuteScalar();
+                        con.Close();
+                    }
+                }
+                if (count > 0)
+                {
+                    Session["UserType"] = "Customer";
+                    using (SqlConnection con = new SqlConnection(constr))
+                    {
+                        string sql = "SELECT C.customer_id FROM End_User AS E,Customer AS C WHERE E.User_id = C.User_id AND e.user_id =" + user_id;
+                        using (SqlCommand cmd = new SqlCommand(sql))
+                        {
+                            cmd.Connection = con;
+                            con.Open();
+                            using (SqlDataReader sdr = cmd.ExecuteReader())
+                            {
+                                while (sdr.Read())
+                                {
+
+                                    Session["Customer_id"] = Convert.ToInt32(sdr["customer_id"]);
+                                }
+                            }
+                            con.Close();
+                        }
+                    }
+
+                }
+
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    string sql = "SELECT count(*) FROM End_User AS E,Driver AS D WHERE E.User_id = D.User_id AND e.user_id =" + user_id;
+                    using (SqlCommand cmd = new SqlCommand(sql))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        count = (int)cmd.ExecuteScalar();
+                        con.Close();
+                    }
+                }
+                if (count > 0)
+                {
+                    using (SqlConnection con = new SqlConnection(constr))
+                    {
+                        string sql = "SELECT D.Driver_id FROM End_User AS E,Driver AS D WHERE E.User_id = D.User_id AND e.user_id =" + user_id;
+                        using (SqlCommand cmd = new SqlCommand(sql))
+                        {
+                            cmd.Connection = con;
+                            con.Open();
+                            using (SqlDataReader sdr = cmd.ExecuteReader())
+                            {
+                                while (sdr.Read())
+                                {
+
+                                    Session["Driver_id"] = Convert.ToInt32(sdr["Driver_id"]);
+                                }
+                            }
+                            con.Close();
+                        }
+                    }
+                    Session["UserType"] = "Driver";
+                }
+
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    string sql = "SELECT  count(*) FROM End_User AS E,Restaurant AS R WHERE E.User_id = R.User_id AND e.user_id =" + user_id;
+                    using (SqlCommand cmd = new SqlCommand(sql))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        count = (int)cmd.ExecuteScalar();
+                        con.Close();
+                    }
+                }
+                if (count > 0)
+                {
+                    using (SqlConnection con = new SqlConnection(constr))
+                    {
+                        string sql = "SELECT R.restaurant_id FROM End_User AS E, Restaurant AS R WHERE E.User_id = R.User_id AND e.user_id = " + user_id;
+                        using (SqlCommand cmd = new SqlCommand(sql))
+                        {
+                            cmd.Connection = con;
+                            con.Open();
+                            using (SqlDataReader sdr = cmd.ExecuteReader())
+                            {
+                                while (sdr.Read())
+                                {
+
+                                    Session["restaurant_id"] = Convert.ToInt32(sdr["restaurant_id"]);
+                                }
+                            }
+                            con.Close();
+                        }
+                    }
+                    Session["UserType"] = "Restaurant";
+                }
+
+
+                Session["UserName"] = model.Name;
+
+                return Json("Login Successfully", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("Invalid login attempt.", JsonRequestBehavior.AllowGet);
             }
         }
 
