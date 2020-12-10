@@ -167,6 +167,33 @@ namespace Delivive.Controllers
             return RedirectToAction("SuccessPage", "Home");
         }
 
+        public ActionResult AssignDriverData(int orderId, int driverId)
+        {
+            int result2 = 0;
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                List<OrderModel> result = new List<OrderModel>();
+                string sql = "UPDATE [dbo].[Order] " +
+                               " SET [Delivery_status] = 'On the way', " +
+                               " [Driver_id] = " + driverId +
+                               " WHERE Order_id = " + orderId + ";";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    result2 = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
+               
+            }
+            if(result2>0)
+                return Json("Driver assigned successfully!", JsonRequestBehavior.AllowGet);
+            else
+                return Json("Error on assigning Driver!", JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult MyDeliveries()
         {
 
