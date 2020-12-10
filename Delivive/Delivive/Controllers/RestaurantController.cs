@@ -269,7 +269,7 @@ namespace Delivive.Controllers
             {
                 List<FoodModel> result = new List<FoodModel>();
                 string sql = "SELECT * FROM [Food]"
-                            + " WHERE Restaurant_id = " + restaurant_id + ";";
+                            + " WHERE Restaurant_id = " + restaurant_id + " AND Deleted = 0;";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;
