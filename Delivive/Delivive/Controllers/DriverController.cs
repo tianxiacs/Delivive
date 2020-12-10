@@ -230,6 +230,42 @@ namespace Delivive.Controllers
             }
         }
 
+        public ActionResult MyDeliveriesData(int Driver_id)
+        {
+
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                List<OrderModel> result = new List<OrderModel>();
+                string sql = @"SELECT *, d.address as temp1 FROM [Order] a INNER JOIN [Restaurant] b on a.Restaurant_id = b.Restaurant_id 
+                            INNER JOIN end_user c ON b.User_id = c.User_id 
+                            INNER JOIN Customer d ON d.Customer_id = a.Customer_id
+                            where Delivery_status = 'On the way' AND Driver_id = " + Driver_id + ";";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            result.Add(new OrderModel
+                            {
+                                Name = sdr["Name"].ToString(),
+                                Time_placed = DateTime.Parse(sdr["Time_placed"].ToString()),
+                                Order_id = Convert.ToInt32(sdr["Order_id"]),
+                                Address = sdr["temp1"].ToString(),
+                                Delivery_status = sdr["Delivery_status"].ToString(),
+                            });
+                        }
+                    }
+                    con.Close();
+                }
+
+                return Json(result,JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult CompleteOrder(int orderId)
         {
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
@@ -252,6 +288,33 @@ namespace Delivive.Controllers
             }
 
             return RedirectToAction("SuccessPage", "Home");
+        }
+
+        public ActionResult CompleteOrderData(int orderId)
+        {
+            int result2 = 0;
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                List<OrderModel> result = new List<OrderModel>();
+                string sql = "UPDATE [dbo].[Order] " +
+                             "SET   [Delivery_status] = 'Order Completed'," +
+                                "Time_delivery = '" + DateTime.Now + "'" +
+                                " WHERE Order_id = " + orderId + ";";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                
+            }
+            if(result2 >0)
+                return Json("Order Completed Successfully", JsonRequestBehavior.AllowGet);
+            else
+                return Json("Error on complete order", JsonRequestBehavior.AllowGet);
         }
     }
 }

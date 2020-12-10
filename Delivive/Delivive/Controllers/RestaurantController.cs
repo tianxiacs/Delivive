@@ -389,7 +389,7 @@ namespace Delivive.Controllers
             }
         }
 
-        // NOT DONE YET
+        
         public ActionResult PlaceOrder(List<FoodModel> foods)
         {
             int result2 = 0;
@@ -442,7 +442,85 @@ namespace Delivive.Controllers
             return Json("Successfully");
         }
 
+        [HttpPost]
+        public ActionResult PlaceOrderData(List<FoodModel> foods, int Customer_id)
+        {
+            int result2 = 0;
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                List<FoodModel> result = new List<FoodModel>();
+                string sql = @"INSERT INTO [ORDER] ([Time_placed]
+           ,[Delivery_status]
+           ,[Customer_id]
+           ,[Restaurant_id]) VALUES ('" +
+                          DateTime.Now + "'," +
+                            "'Order Placed'" + "," +
+                             Customer_id + "," +
+                               foods[0].Restaurant_id + ");";
+                sql += @"  declare @temp int
+		   set @temp = (SELECT SCOPE_IDENTITY());";
+                foreach (FoodModel food in foods)
+                {
+                    sql +=
+                        @"INSERT INTO [dbo].[Order_Detail]
+                       ([Order_id]
+                       ,[Restaurant_id]
+                       ,[Food_id]
+                       ,[Quantity])
+                 VALUES
+                       ((@temp)," +
+                          food.Restaurant_id + "," +
+                          food.Food_id + "," +
+                          1 + ");";
+                }
+
+
+
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    result2 = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+                if (result2 > 0)
+                    return Json("Success");
+                else
+                    return Json("Fail");
+            }
+
+            return Json("Successfully");
+        }
+
         public ActionResult DeleteFood(FoodModel food)
+        {
+            int result = 0;
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string sql = "UPDATE Food SET Deleted = 1" +
+                    "WHERE [Restaurant_id] = " + food.Restaurant_id + " AND Food_id = " + food.Food_id + ";";
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    result = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (result > 0)
+                    return Json("Successfully Deleted!");
+                else
+                    return Json("Error on deleting!");
+            }
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteFoodData(FoodModel food)
         {
             int result = 0;
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
