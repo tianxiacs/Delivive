@@ -82,11 +82,11 @@ namespace Delivive.Controllers
             using (SqlConnection con = new SqlConnection(constr))
             {
                 string sql = "UPDATE [dbo].[Order] " +
-                                  " SET [Time_placed] = " + view.Time_placed +
-                                  ",[Time_delivery] = " + view.Time_delivery +
+                                  " SET [Time_placed] = '" + view.Time_placed + "'" +
+                                  ",[Time_delivery] = '" + view.Time_delivery + "'" +
                                   ",[Rating] = " + view.Rating +
-                                  ",[Comment] = " + view.Comment +
-                                  ",[Delivery_status] = " + view.Delivery_status +
+                                  ",[Comment] = '" + view.Comment + "'" +
+                                  ",[Delivery_status] = '" + view.Delivery_status + "'" +
                                   ",[Customer_id] = " + view.Customer_id +
                                   ",[Driver_id] = " + view.Driver_id +
                                   ",[Restaurant_id] = " + view.Restaurant_id +

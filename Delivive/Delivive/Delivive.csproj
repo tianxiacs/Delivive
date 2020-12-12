@@ -180,7 +180,6 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrderDetail2Controller.cs" />
     <Compile Include="Controllers\OrderDetailController.cs" />
-    <Compile Include="Controllers\qqqController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
