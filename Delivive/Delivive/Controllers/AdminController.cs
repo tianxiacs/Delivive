@@ -41,15 +41,15 @@ namespace Delivive.Controllers
             }
         } 
         
-        public ActionResult ApproveRestaurantData(int adminId, int driverId, int appId)
+        public ActionResult ApproveRestaurantData(int adminId, int RestaurantId, int appId)
         {
             int result = 0;
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
-                string sql = "UPDATE [dbo].[Driver_Application] " +
+                string sql = "UPDATE [dbo].[Restaurant_Application] " +
                         " SET [Driver_Decision] = true " +
-                        " WHERE Driver_id = " + driverId + " AND App_id = " + appId + ";";
+                        " WHERE Restaurant_id = " + RestaurantId + " AND App_id = " + appId + ";";
                 using (SqlCommand cmd = new SqlCommand(sql))
                 {
                     cmd.Connection = con;
