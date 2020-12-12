@@ -119,10 +119,10 @@ namespace Delivive.Controllers
                     con.Close();
                 }
 
-                return Json("Successfully accepted order!");
+                return Json("Successfully accepted order!", JsonRequestBehavior.AllowGet);
             }
 
-            return Json("Successfully accepted order!");
+            return Json("Successfully accepted order!", JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult DeclineOrder(int orderId)
@@ -165,10 +165,10 @@ namespace Delivive.Controllers
                     con.Close();
                 }
 
-                return Json("Successfully declined order!");
+                return Json("Successfully declined order!", JsonRequestBehavior.AllowGet);
             }
 
-            return Json("Successfully declined order!");
+            return Json("Successfully declined order!", JsonRequestBehavior.AllowGet);
         }
 
     }

@@ -41,6 +41,31 @@ namespace Delivive.Controllers
             return RedirectToAction("SuccessPage", "Home");
         }
 
+        [HttpPost]
+        public ActionResult CustomerRegisterData(CustomerModel viewModel)
+        {
+            string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string sql = "INSERT INTO End_User (Name,Phone,Password) VALUES ('" + viewModel.Name + "','" + viewModel.Phone + "','" + viewModel.Password + "');";
+                int result = 0;
+                sql += "INSERT INTO Customer (Address, User_id) VALUES ('" + viewModel.Address + "',(SELECT SCOPE_IDENTITY()));";
+
+                using (SqlCommand cmd = new SqlCommand(sql))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    result = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (result > 0)
+                    return Json("Successfully registered!", JsonRequestBehavior.AllowGet);
+                else
+                    return Json("Error on registration!", JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("SuccessPage", "Home");
+        }
+
         public ActionResult GetCustomerOrders()
         {
             string constr = ConfigurationManager.ConnectionStrings["DeliviveConnection"].ConnectionString;
