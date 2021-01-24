@@ -1,7 +1,7 @@
 # Delivive
 A non-profit delivery service to revive small local restaurant.
 API documentation: https://documenter.getpostman.com/view/13808765/TVmV5tPm
-1.	Download the project from .zip file on D2L or Git clone https://github.com/tianxiacs/Delivive.git.
+1.	Download the project from .zip file on D2L or Git clone https://github.com/tianxiahci/Delivive.git.
 2.	Run Delivive.sql query in Microsoft SQL Server Database to create database.
     This file can be found as "DB Script Final" in Issues.
 3.	Use Visual Studio IDE to open the project.
